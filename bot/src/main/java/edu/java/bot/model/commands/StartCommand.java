@@ -34,6 +34,6 @@ public class StartCommand implements Command {
         }else {
             text = "Пользователь уже был зарегестрирован";
         }
-        return new SendMessage(update.message().chat().id(), "Пользователь зарегестрирован");
+        return new SendMessage(id, "Пользователь зарегестрирован");
     }
 }

@@ -5,7 +5,6 @@ import edu.java.bot.configuration.ApplicationConfig;
 import edu.java.bot.repositories.UserRepository;
 import edu.java.bot.services.UpdatesListenerService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
@@ -13,18 +12,24 @@ public class BotController {
 
     private final ApplicationConfig applicationConfig;
     private UserRepository userRepository;
+    private final UpdatesListenerService updatesListenerService;
+    private final TelegramBot telegramBot;
 
-    @Autowired
-    public BotController(ApplicationConfig applicationConfig, UserRepository userRepository) {
+    public BotController(
+        ApplicationConfig applicationConfig,
+        UserRepository userRepository,
+        TelegramBot telegramBot,
+        UpdatesListenerService updatesListenerService
+    ) {
         this.applicationConfig = applicationConfig;
         this.userRepository = userRepository;
+        this.updatesListenerService = updatesListenerService;
+        this.telegramBot = telegramBot;
     }
 
     @PostConstruct
     void run() {
-        TelegramBot telegramBot = new TelegramBot(applicationConfig.telegramToken());
-        UpdatesListenerService botUpdatesListenerService = new UpdatesListenerService(telegramBot);
-        telegramBot.setUpdatesListener(botUpdatesListenerService);
+        telegramBot.setUpdatesListener(updatesListenerService);
 
     }
 

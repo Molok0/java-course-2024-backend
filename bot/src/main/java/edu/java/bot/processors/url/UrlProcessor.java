@@ -7,6 +7,6 @@ public abstract class UrlProcessor {
     public void setNext(UrlProcessor urlProcessor){
         this.next = urlProcessor;
     }
-    abstract void handle(URI uri);
+    public abstract void handle(URI uri);
 
 }
