@@ -30,7 +30,6 @@ public class BotController {
     @PostConstruct
     void run() {
         telegramBot.setUpdatesListener(updatesListenerService);
-
     }
 
 }

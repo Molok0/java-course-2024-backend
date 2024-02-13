@@ -20,4 +20,6 @@ public interface Command {
     default BotCommand toApiCommand() {
         return new BotCommand(command(), description());
     }
+
+    boolean check(String request);
 }

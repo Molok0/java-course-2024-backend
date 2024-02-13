@@ -1,32 +1,41 @@
 package edu.java.bot.processors.url;
 
 import edu.java.bot.processors.url.parser.UrlParser;
-import java.net.URI;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GitHubProcessor extends UrlProcessor {
     private UrlProcessor next;
-    private String nameSite = "github.com";
+
+    private final String nameSite = "github.com";
 
     public GitHubProcessor() {
-        super();
+
     }
 
     @Override
-    public void handle(URI uri) {
-        if (UrlParser.getWebSiteName(uri) == nameSite) {
+    public String handle(String url) {
+        String text;
+        if (UrlParser.getWebSiteName(url).equals(nameSite)) {
             /*
              * Какая то логика
              * Добовляем ссылку в отслеживаемые
              * */
-            System.out.println("GitHubProcessor" + uri.toString());
+            text = "GitHubProcessor\t" + url;
         } else if (next != null) {
             /*
              * Какая то логика
              * Передаём следующему обработчику
              * */
-            next.handle(uri);
+            text = next.handle(url);
         } else {
-            System.out.println("Такой сайт не может отслеживаться");
+            text = "Такой сайт не может отслеживаться";
         }
+        return text;
+    }
+
+    @Override
+    public String getNameSite() {
+        return nameSite;
     }
 }

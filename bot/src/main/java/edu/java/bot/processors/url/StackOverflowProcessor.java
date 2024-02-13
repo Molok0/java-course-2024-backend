@@ -1,34 +1,39 @@
 package edu.java.bot.processors.url;
 
 import edu.java.bot.processors.url.parser.UrlParser;
-import java.net.URI;
-import java.util.logging.Logger;
+import org.springframework.stereotype.Component;
 
+@Component
 public class StackOverflowProcessor extends UrlProcessor {
     private UrlProcessor next;
     private String nameSite = "stackoverflow.com";
 
     public StackOverflowProcessor() {
-        super();
+
     }
 
     @Override
-    public void handle(URI uri) {
-        if (UrlParser.getWebSiteName(uri) == nameSite) {
+    public String handle(String url) {
+        String text;
+        if (UrlParser.getWebSiteName(url).equals(nameSite)) {
             /*
              * Какая то логика
              * Добовляем ссылку в отслеживаемые
              * */
-            System.out.println("StackOverflowProcessor" + uri.toString());
+            text = "StackOverflowProcessor" + url;
         } else if (next != null) {
             /*
              * Какая то логика
              * Передаём следующему обработчику
              * */
-            next.handle(uri);
+            text = next.handle(url);
         } else {
-            System.out.println("Такой сайт не может отслеживаться");
+            text = "Такой сайт не может отслеживаться";
         }
-        System.out.println("StackOverflowProcessor" + uri.toString());
+        return text;
+    }
+
+    public String getNameSite() {
+        return nameSite;
     }
 }

@@ -21,8 +21,12 @@ public class UserRepository {
     public List<User> findAll() {
         return new ArrayList<>();
     }
+
     public void addUser(Long id, User user) {
         users.put(id, user);
     }
 
+    public boolean siteInRepository(String s) {
+        return true;
+    }
 }

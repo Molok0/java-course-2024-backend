@@ -2,15 +2,14 @@ package edu.java.bot.model.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.configuration.WebSiteProcessorConfig;
-import java.net.URI;
+import edu.java.bot.services.WebSiteProcessorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TrackCommand implements Command {
     @Autowired
-    public WebSiteProcessorConfig webSiteProcessorConfig;
+    public WebSiteProcessorService webSiteProcessorService;
 
     @Override
     public String command() {
@@ -27,13 +26,20 @@ public class TrackCommand implements Command {
 
         Long id = update.message().chat().id();
         String request = update.message().text();
+        if (!check(request)) {
+            return new SendMessage(id, "После команды /track должна быть ссылка на сайт");
+        }
         String[] list = request.split(" ");
         try {
-            webSiteProcessorConfig.getUrlProcessor().handle(URI.create(list[1]));
-        }catch (Exception e){
+            String text = webSiteProcessorService.getUrlProcessor().handle(list[1]);
+            return new SendMessage(id, text);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        System.out.println(2);
-        return new SendMessage(id, "Сайт добавлен");
+    }
+
+    @Override
+    public boolean check(String request) {
+        return (request.split(" ").length == 2);
     }
 }

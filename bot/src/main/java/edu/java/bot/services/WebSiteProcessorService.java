@@ -1,20 +1,20 @@
-package edu.java.bot.configuration;
+package edu.java.bot.services;
 
 import edu.java.bot.processors.url.GitHubProcessor;
 import edu.java.bot.processors.url.StackOverflowProcessor;
 import edu.java.bot.processors.url.UrlProcessor;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WebSiteProcessorConfig {
+public class WebSiteProcessorService {
     private UrlProcessor urlProcessor;
-    public WebSiteProcessorConfig(){
+
+    public WebSiteProcessorService() {
         urlProcessor = new GitHubProcessor();
         urlProcessor.setNext(new StackOverflowProcessor());
     }
 
-    public UrlProcessor getUrlProcessor(){
+    public UrlProcessor getUrlProcessor() {
         return urlProcessor;
     }
 }

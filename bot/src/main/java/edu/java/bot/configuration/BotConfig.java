@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class BotConfig {
 
     @Bean
-    public TelegramBot telegramBot(ApplicationConfig applicationConfig){
+    public TelegramBot telegramBot(ApplicationConfig applicationConfig) {
         return new TelegramBot(applicationConfig.telegramToken());
     }
 }
