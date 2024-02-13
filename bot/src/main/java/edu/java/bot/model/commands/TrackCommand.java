@@ -8,17 +8,20 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TrackCommand implements Command {
+    private static final String COMMAND_NAME = "/track";
+    private static final String DESCRIPTION = "Начинает отслеживать ссылку";
+    private static final String MISUSE = "После команды /track должна быть ссылка на сайт";
     @Autowired
     public WebSiteProcessorService webSiteProcessorService;
 
     @Override
     public String command() {
-        return "/track";
+        return COMMAND_NAME;
     }
 
     @Override
     public String description() {
-        return new String("Начинает отслеживать ссылку");
+        return DESCRIPTION;
     }
 
     @Override
@@ -27,7 +30,7 @@ public class TrackCommand implements Command {
         Long id = update.message().chat().id();
         String request = update.message().text();
         if (!check(request)) {
-            return new SendMessage(id, "После команды /track должна быть ссылка на сайт");
+            return new SendMessage(id, MISUSE);
         }
         String[] list = request.split(" ");
         try {

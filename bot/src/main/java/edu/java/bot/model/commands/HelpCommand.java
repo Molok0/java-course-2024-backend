@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class HelpCommand implements Command {
+    private static final String COMMAND_NAME = "/help";
+    private static final String DESCRIPTION = "Выводит окно с командами";
+    private static final String MISUSE = "Неправильное использование команды /help";
     private List<? extends Command> commands;
 
     @Autowired
@@ -17,12 +20,12 @@ public class HelpCommand implements Command {
 
     @Override
     public String command() {
-        return "/help";
+        return COMMAND_NAME;
     }
 
     @Override
     public String description() {
-        return new String("Выводит окно с командами");
+        return DESCRIPTION;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class HelpCommand implements Command {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (!check(update.message().text())) {
-            return new SendMessage(id, "Неправильное использование команды /start");
+            return new SendMessage(id, MISUSE);
         }
 
         for (var command : commands) {

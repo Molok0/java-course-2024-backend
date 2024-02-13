@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ListCommand implements Command {
+    private static final String COMMAND_NAME = "/list";
+    private static final String DESCRIPTION = "Возвращает список всех отслеживаемых сайтов";
+    private static final String MISUSE = "Неправильное использование команды /list";
     private List<? extends UrlProcessor> urlProcessors;
 
     @Autowired
@@ -18,12 +21,12 @@ public class ListCommand implements Command {
 
     @Override
     public String command() {
-        return "/list";
+        return COMMAND_NAME;
     }
 
     @Override
     public String description() {
-        return new String("Возвращает список всех отслеживаемых сайтов");
+        return DESCRIPTION;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class ListCommand implements Command {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (!check(update.message().text())) {
-            return new SendMessage(id, "Неправильное использование команды /start");
+            return new SendMessage(id, MISUSE);
         }
 
         for (var urlProcessor : urlProcessors) {

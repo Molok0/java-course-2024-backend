@@ -10,32 +10,37 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StartCommand implements Command {
+    private static final String COMMAND_NAME = "/start";
+    private static final String DESCRIPTION = "Запускает бот";
+    private static final String MISUSE = "Неправильное использование команды /start";
+    private static final String USER_REGISTRATION = "Пользователь зарегестрирован";
+    private static final String USER_HAS_BEEN_REGISTERED = "Пользователь уже был зарегестрирован";
     @Autowired
     UserRepository userRepository;
 
     @Override
     public String command() {
-        return "/start";
+        return COMMAND_NAME;
     }
 
     @Override
     public String description() {
-        return new String("Запускает бот");
+        return DESCRIPTION;
     }
 
     @Override
     public SendMessage handle(Update update) {
         Long id = update.message().chat().id();
         if (!check(update.message().text())) {
-            return new SendMessage(id, "Неправильное использование команды /start");
+            return new SendMessage(id, MISUSE);
         }
         var user = userRepository.findById(id);
         String text;
         if (Objects.isNull(user)) {
-            text = "Пользователь зарегестрирован";
+            text = USER_REGISTRATION;
             userRepository.addUser(id, new User(id));
         } else {
-            text = "Пользователь уже был зарегестрирован";
+            text = USER_HAS_BEEN_REGISTERED;
         }
         return new SendMessage(id, text);
     }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommandsProcessor implements UserMessageProcessor {
     private List<? extends Command> commands;
+    private static final String COMMAND_NOT_FOUND = "Команда не найдена";
 
     public CommandsProcessor(List<? extends Command> listCommands) {
         this.commands = listCommands;
@@ -28,6 +29,6 @@ public class CommandsProcessor implements UserMessageProcessor {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return new SendMessage(update.message().chat().id(), "Команда не найдена");
+        return new SendMessage(update.message().chat().id(), COMMAND_NOT_FOUND);
     }
 }

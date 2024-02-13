@@ -8,17 +8,22 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UnTrackCommand implements Command {
+    private static final String COMMAND_NAME = "/untrack";
+    private static final String DESCRIPTION = "Прекращает отслеживание ссылки";
+    private static final String MISUSE = "После команды /untrack должна быть ссылка на сайт";
+    private static final String DELETE_SITE = "Сайт больше не отслеживается";
+    private static final String MISSING_SITE = "Сайт не отслеживался";
     @Autowired
     UserRepository userRepository;
 
     @Override
     public String command() {
-        return "/untrack";
+        return COMMAND_NAME;
     }
 
     @Override
     public String description() {
-        return new String("Прекращает отслеживание ссылки");
+        return DESCRIPTION;
     }
 
     @Override
@@ -28,16 +33,16 @@ public class UnTrackCommand implements Command {
 
         String request = update.message().text();
         if (!check(request)) {
-            return new SendMessage(id, "После команды /untrack должна быть ссылка на сайт");
+            return new SendMessage(id, MISUSE);
         }
         String[] list = request.split(" ");
         if (userRepository.siteInRepository(list[1])) {
             /*
              * Удаляем из репозитория этот сайт
              * */
-            text = "Сайт больше не отслеживается";
+            text = DELETE_SITE;
         } else {
-            text = "Сайт не отслеживался";
+            text = MISSING_SITE;
         }
         return new SendMessage(id, text);
     }
