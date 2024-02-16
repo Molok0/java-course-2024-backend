@@ -1,5 +1,6 @@
 package edu.java.bot.services;
 
+import com.pengrad.telegrambot.model.BotCommand;
 import edu.java.bot.processors.url.GitHubProcessor;
 import edu.java.bot.processors.url.StackOverflowProcessor;
 import edu.java.bot.processors.url.UrlProcessor;

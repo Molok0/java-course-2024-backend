@@ -16,7 +16,7 @@ public class UpdatesListenerService implements UpdatesListener {
     public UpdatesListenerService(TelegramBot telegramBot, CommandsProcessor commandsProcessor) {
         this.commandsProcessor = commandsProcessor;
         this.telegramBot = telegramBot;
-//        this.telegramBot.setUpdatesListener(this);
+        this.telegramBot.setUpdatesListener(this);
     }
 
     @Override
