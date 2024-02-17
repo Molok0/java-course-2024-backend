@@ -10,6 +10,10 @@ public abstract class UrlProcessor {
         this.next = urlProcessor;
     }
 
+    public UrlProcessor getNext() {
+        return this.next;
+    }
+
     public abstract String handle(String url);
 
     public abstract String getNameSite();
