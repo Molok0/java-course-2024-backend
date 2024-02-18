@@ -6,8 +6,8 @@ import com.pengrad.telegrambot.model.Update;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -15,7 +15,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class CommandsProcessorTest {
-    @MockBean
+    @Autowired
     private CommandsProcessor commandsProcessor;
 //    @Mock
 //    private List<? extends Command> listCommands;
