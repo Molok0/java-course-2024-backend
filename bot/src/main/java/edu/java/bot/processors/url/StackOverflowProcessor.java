@@ -9,7 +9,6 @@ public class StackOverflowProcessor extends UrlProcessor {
     private String nameSite = "stackoverflow.com";
 
     public StackOverflowProcessor() {
-
     }
 
     @Override
