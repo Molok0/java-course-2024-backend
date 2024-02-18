@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.model.Chat;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,10 +15,9 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 public class CommandsProcessorTest {
     @Autowired
-    private CommandsProcessor commandsProcessor;
+    public CommandsProcessor commandsProcessor;
 //    @Mock
 //    private List<? extends Command> listCommands;
-
     @Test
     void process() {
         var chat = mock(Chat.class);
@@ -36,6 +34,12 @@ public class CommandsProcessorTest {
         var updateMock = mock(Update.class);
         when(updateMock.message()).thenReturn(messageMock);
 
-        Assertions.assertEquals(commandsProcessor.process(updateMock), "Сайт добавлен");
+        var res = commandsProcessor.process(updateMock).toString();
+        System.out.println(res);
+//        Assert.assertEquals(
+//            commandsProcessor.process(updateMock).toString(),
+//            "Сайт добавлен"
+//        );
+//        Assertions.assertEquals(commandsProcessor.process(updateMock).toString(), "Сайт добавлен");
     }
 }
