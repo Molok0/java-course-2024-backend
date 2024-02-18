@@ -17,7 +17,7 @@ public class BotConfigTest {
     private ApplicationConfig applicationConfig;
 
     @Test
-    public void telegramBotTest()  {
+    public void telegramBotTest() {
         Assertions.assertNotNull(botConfig.telegramBot(applicationConfig));
     }
 }
