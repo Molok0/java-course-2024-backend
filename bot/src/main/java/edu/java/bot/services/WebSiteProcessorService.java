@@ -12,6 +12,7 @@ public class WebSiteProcessorService {
     public WebSiteProcessorService() {
         urlProcessor = new GitHubProcessor();
         urlProcessor.setNext(new StackOverflowProcessor());
+        urlProcessor.getNext().setNext(null);
     }
 
     public UrlProcessor getUrlProcessor() {

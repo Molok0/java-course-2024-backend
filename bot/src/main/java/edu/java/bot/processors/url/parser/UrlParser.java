@@ -22,3 +22,4 @@ public class UrlParser {
         return domain;
     }
 }
+

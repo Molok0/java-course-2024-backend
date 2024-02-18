@@ -27,7 +27,7 @@ public class StackOverflowProcessor extends UrlProcessor {
              * */
             text = next.handle(url);
         } else {
-            text = "Такой сайт не может отслеживаться";
+            text = "Такой сайт не может отслеживаться StackOverflowProcessor";
         }
         return text;
     }
