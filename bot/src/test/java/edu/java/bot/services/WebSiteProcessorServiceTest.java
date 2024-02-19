@@ -1,4 +1,4 @@
-package edu.java.bot;
+package edu.java.bot.services;
 
 import edu.java.bot.services.WebSiteProcessorService;
 import org.junit.jupiter.api.Assertions;
