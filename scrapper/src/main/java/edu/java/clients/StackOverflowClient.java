@@ -1,14 +1,16 @@
 package edu.java.clients;
 
 import edu.java.dto.StackOverflowDto.ItemsDto;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Component
 public class StackOverflowClient {
-    // Лучше записать в yaml
-    private static final String DEFAULT_URL = "https://api.stackexchange.com/2.3";
+
+    @Value("${stackoverflow_default_url}")
+    private static String DEFAULT_URL;
 
     private final WebClient webClient;
 
