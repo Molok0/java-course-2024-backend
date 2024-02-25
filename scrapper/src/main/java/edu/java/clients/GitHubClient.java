@@ -9,12 +9,12 @@ import reactor.core.publisher.Mono;
 @Component
 public class GitHubClient {
     @Value("${github_default_url}")
-    private static String DEFAULT_URL;
+    private static String defaultUrl;
 
     private final WebClient webClient;
 
     public GitHubClient(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(DEFAULT_URL).build();
+        this.webClient = webClientBuilder.baseUrl(defaultUrl).build();
     }
 
     public Mono<UserRepositoryResponse> getInfo(String name, String reposName) {

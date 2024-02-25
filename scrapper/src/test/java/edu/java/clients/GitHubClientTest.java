@@ -3,6 +3,7 @@ package edu.java.clients;
 import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import edu.java.ScrapperApplication;
+import org.junit.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -24,6 +25,8 @@ public class GitHubClientTest {
     public static void setUpMockDefaultUrl(DynamicPropertyRegistry registry) {
         registry.add("github_default_url", wireMockExtension::baseUrl);
     }
+    @Test
+    public void notEmptyTest(){
 
-
+    }
 }

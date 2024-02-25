@@ -10,12 +10,12 @@ import reactor.core.publisher.Mono;
 public class StackOverflowClient {
 
     @Value("${stackoverflow_default_url}")
-    private static String DEFAULT_URL;
+    private static String defaultUrl;
 
     private final WebClient webClient;
 
     public StackOverflowClient(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl(DEFAULT_URL).build();
+        this.webClient = webClientBuilder.baseUrl(defaultUrl).build();
     }
 
     public Mono<ItemsDto> getQuestions(String id) {
