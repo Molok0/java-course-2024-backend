@@ -39,7 +39,7 @@ public class ListCommand implements Command {
         }
 
         for (var urlProcessor : urlProcessors) {
-            stringBuilder.append(urlProcessor.getNameSite() + "\n");
+            stringBuilder.append(urlProcessor.getNameSite()).append("\n");
         }
         return new SendMessage(id, stringBuilder.toString());
     }

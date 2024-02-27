@@ -11,8 +11,12 @@ public class TrackCommand implements Command {
     private static final String COMMAND_NAME = "/track";
     private static final String DESCRIPTION = "Начинает отслеживать ссылку";
     private static final String MISUSE = "После команды /track должна быть ссылка на сайт";
-    @Autowired
     public WebSiteProcessorService webSiteProcessorService;
+
+    @Autowired
+    public TrackCommand(WebSiteProcessorService webSiteProcessorService) {
+        this.webSiteProcessorService = webSiteProcessorService;
+    }
 
     @Override
     public String command() {

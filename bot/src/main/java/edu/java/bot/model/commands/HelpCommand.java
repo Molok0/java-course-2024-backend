@@ -38,7 +38,7 @@ public class HelpCommand implements Command {
         }
 
         for (var command : commands) {
-            stringBuilder.append(command.command() + "\n");
+            stringBuilder.append(command.command()).append("\n");
         }
 
         return new SendMessage(id, stringBuilder.toString());
