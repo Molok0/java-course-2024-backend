@@ -9,8 +9,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 public class ClientConfig {
-    @Autowired
     private WebClient.Builder webClientBuilder;
+    @Autowired
+    public ClientConfig(WebClient.Builder webClientBuilder) {
+        this.webClientBuilder = webClientBuilder;
+    }
 
     @Bean
     public GitHubClient gitHubClient() {
