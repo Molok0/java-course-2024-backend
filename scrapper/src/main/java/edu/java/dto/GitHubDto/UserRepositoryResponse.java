@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class UserRepositoryResponse {
-    private Long id;
+    public Long id;
     @JsonProperty(value = "pushed_at")
     private OffsetDateTime lastUpdate;
 }

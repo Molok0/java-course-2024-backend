@@ -1,27 +1,36 @@
 package edu.java.clients;
 
-import com.github.tomakehurst.wiremock.junit5.WireMockExtension;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
 import edu.java.ScrapperApplication;
-import org.junit.jupiter.api.extension.RegisterExtension;
+import edu.java.configuration.ClientConfig;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+import org.springframework.test.context.TestPropertySource;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = ScrapperApplication.class)
-//@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ScrapperApplication.class)
+@TestPropertySource(locations = "classpath:test")
 @WireMockTest
 public class GitHubClientTest {
+    @Autowired
+    ClientConfig clientConfig;
+    String url = "/repos/Molok0/java-course-2024-backend";
 
-    @RegisterExtension
-    static WireMockExtension wireMockExtension =
-        WireMockExtension.newInstance()
-            .options(wireMockConfig().dynamicPort().dynamicPort())
-            .build();
+    @Test
+    void testClient() {
 
-    @DynamicPropertySource
-    public static void setUpMockDefaultUrl(DynamicPropertyRegistry registry) {
-        registry.add("github_default_url", wireMockExtension::baseUrl);
+        stubFor(get(urlPathMatching(url)).willReturn(aResponse()
+            .withStatus(200)
+            .withHeader("Content-Type", "application/json   ")
+            .withBody("<response>SUCCESS</response>")));
+
+        clientConfig.gitHubClient().getInfo("Molok0", "java-course-2024-backend").subscribe(userRepositoryResponse -> {
+            Assertions.assertEquals(userRepositoryResponse.id, 1l);
+        });
     }
 }
