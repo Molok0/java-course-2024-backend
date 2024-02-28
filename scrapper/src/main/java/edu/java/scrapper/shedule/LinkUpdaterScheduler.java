@@ -1,4 +1,4 @@
-package edu.java.shedule;
+package edu.java.scrapper.shedule;
 
 import java.util.logging.Logger;
 import org.springframework.scheduling.annotation.Scheduled;

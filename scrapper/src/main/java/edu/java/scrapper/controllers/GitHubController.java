@@ -1,6 +1,6 @@
-package edu.java.controllers;
+package edu.java.scrapper.controllers;
 
-import edu.java.clients.GitHubClient;
+import edu.java.scrapper.clients.GitHubClient;
 import org.springframework.stereotype.Controller;
 
 @Controller

@@ -1,4 +1,4 @@
-package edu.java.dto.StackOverflowDto;
+package edu.java.scrapper.dto.StackOverflowDto;
 
 import java.util.List;
 import lombok.Data;
