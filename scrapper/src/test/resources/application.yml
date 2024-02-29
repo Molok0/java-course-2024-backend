@@ -4,8 +4,8 @@ app:
     interval: 7s
     force-check-delay: 10s
   url_client:
-      stackoverflow_default_url: https://api.stackexchange.com/2.3/
-      github_default_url: https://api.github.com/
+    stackoverflow_default_url: http://localhost:8080
+    github_default_url: http://localhost:8080
 
 spring:
   application:

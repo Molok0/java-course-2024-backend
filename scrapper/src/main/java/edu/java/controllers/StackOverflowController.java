@@ -1,6 +1,6 @@
-package edu.java.scrapper.controllers;
+package edu.java.controllers;
 
-import edu.java.scrapper.clients.StackOverflowClient;
+import edu.java.clients.StackOverflowClient;
 import org.springframework.stereotype.Controller;
 
 @Controller

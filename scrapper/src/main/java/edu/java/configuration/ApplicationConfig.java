@@ -1,4 +1,4 @@
-package edu.java.scrapper.configuration;
+package edu.java.configuration;
 
 import jakarta.validation.constraints.NotNull;
 import java.time.Duration;
@@ -12,7 +12,10 @@ public record ApplicationConfig(
     @NotNull
     @Bean
     Scheduler scheduler
-) {
+    , UrlClient urlClient) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
+    }
+
+    public record UrlClient(String githubDefaultUrl, String stackoverflowDefaultUrl) {
     }
 }

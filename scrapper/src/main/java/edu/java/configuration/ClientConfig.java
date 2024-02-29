@@ -1,7 +1,7 @@
 package edu.java.configuration;
 
-import edu.java.scrapper.clients.GitHubClient;
-import edu.java.scrapper.clients.StackOverflowClient;
+import edu.java.clients.GitHubClient;
+import edu.java.clients.StackOverflowClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +16,12 @@ public class ClientConfig {
     }
 
     @Bean
-    public GitHubClient gitHubClient() {
-        return new GitHubClient(webClientBuilder);
+    public GitHubClient gitHubClient(ApplicationConfig applicationConfig) {
+        return new GitHubClient(webClientBuilder, applicationConfig.urlClient().githubDefaultUrl());
     }
 
     @Bean
-    public StackOverflowClient stackOverflowClient() {
-        return new StackOverflowClient(webClientBuilder);
+    public StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
+        return new StackOverflowClient(webClientBuilder, applicationConfig.urlClient().stackoverflowDefaultUrl());
     }
 }

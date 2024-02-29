@@ -1,20 +1,13 @@
-package edu.java.scrapper.clients;
+package edu.java.clients;
 
-import edu.java.scrapper.dto.StackOverflowDto.ItemsDto;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import edu.java.dto.StackOverflowDto.ItemsDto;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-@Component
 public class StackOverflowClient {
-
-    @Value("${stackoverflow_default_url}")
-    private static String defaultUrl;
-
     private final WebClient webClient;
 
-    public StackOverflowClient(WebClient.Builder webClientBuilder) {
+    public StackOverflowClient(WebClient.Builder webClientBuilder, String defaultUrl) {
         this.webClient = webClientBuilder.baseUrl(defaultUrl).build();
     }
 
