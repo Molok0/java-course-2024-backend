@@ -22,12 +22,11 @@
 //    ClientConfig clientConfig;
 //    @Autowired
 //    ApplicationConfig applicationConfig;
-//    String url = "/repos/*";
+//    String url = "/repos/Molok0/java-course-2024-backend";
 //    private static final String BODY = "{ \"id\": 752771021, \"created_at\": 2023-02-04T18:57:39Z }";
 //
 //    @Test
 //    void testClient() {
-//        System.out.println(applicationConfig.urlClient().githubDefaultUrl());
 //
 //        stubFor(get(urlPathMatching(url))
 //            .willReturn(aResponse()
