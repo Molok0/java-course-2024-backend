@@ -11,8 +11,7 @@ import org.springframework.validation.annotation.Validated;
 public record ApplicationConfig(
     @NotNull
     @Bean
-    Scheduler scheduler
-    , UrlClient urlClient) {
+    Scheduler scheduler, UrlClient urlClient) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 

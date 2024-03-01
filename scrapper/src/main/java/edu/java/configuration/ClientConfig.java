@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class ClientConfig {
     private WebClient.Builder webClientBuilder;
+
     @Autowired
     public ClientConfig(WebClient.Builder webClientBuilder) {
         this.webClientBuilder = webClientBuilder;
