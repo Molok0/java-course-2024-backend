@@ -1,4 +1,4 @@
-package edu.java.controllers;
+package edu.java.api.controllers;
 
 import edu.java.scrapper.AddLinkRequest;
 import edu.java.scrapper.LinkResponse;

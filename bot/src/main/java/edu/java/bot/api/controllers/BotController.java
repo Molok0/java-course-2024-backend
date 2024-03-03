@@ -6,7 +6,6 @@ import edu.java.bot.api.services.BotService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -15,6 +14,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 @RequiredArgsConstructor
 public class BotController implements UpdatesApi {
     private BotService botService;
+
     @Autowired
     public BotController(BotService botService) {
         this.botService = botService;

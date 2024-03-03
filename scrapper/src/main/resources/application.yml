@@ -6,10 +6,15 @@ app:
   url_client:
       stackoverflow_default_url: https://api.stackexchange.com/2.3/
       github_default_url: https://api.github.com/
+      bot_default_url: http://localhost:8090
 
 spring:
   application:
     name: scrapper
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
 
 server:
   port: 8080

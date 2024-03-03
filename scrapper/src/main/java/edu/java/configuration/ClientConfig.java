@@ -1,5 +1,6 @@
 package edu.java.configuration;
 
+import edu.java.api.clients.BotClient;
 import edu.java.clients.GitHubClient;
 import edu.java.clients.StackOverflowClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,10 @@ public class ClientConfig {
     @Bean
     public StackOverflowClient stackOverflowClient(ApplicationConfig applicationConfig) {
         return new StackOverflowClient(webClientBuilder, applicationConfig.urlClient().stackoverflowDefaultUrl());
+    }
+
+    @Bean
+    public BotClient botClient(ApplicationConfig applicationConfig) {
+        return new BotClient(webClientBuilder, applicationConfig.urlClient().botDefaultUrl());
     }
 }

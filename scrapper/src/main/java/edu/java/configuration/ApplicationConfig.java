@@ -15,6 +15,6 @@ public record ApplicationConfig(
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
-    public record UrlClient(String githubDefaultUrl, String stackoverflowDefaultUrl) {
+    public record UrlClient(String githubDefaultUrl, String stackoverflowDefaultUrl, String botDefaultUrl) {
     }
 }
