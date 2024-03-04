@@ -32,4 +32,9 @@ public class ScrapperClient {
         return this.webClient.post().uri(LINKS).header(id.toString()).bodyValue(uri).retrieve()
             .bodyToMono(Void.class);
     }
+
+    public Mono<Void> deleteLinks(URI uri, Long id) {
+        return this.webClient.post().uri(LINKS).header(id.toString()).bodyValue(uri).retrieve()
+            .bodyToMono(Void.class);
+    }
 }
