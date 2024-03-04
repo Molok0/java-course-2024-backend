@@ -1,5 +1,6 @@
 package edu.java.api.clients;
 
+import edu.java.api.dto.LinkUpdate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -10,8 +11,8 @@ public class BotClient {
         this.webClient = webClientBuilder.baseUrl(defaultUrl).build();
     }
 
-    public Mono<Void> update() {
-        return this.webClient.post().uri("/update").retrieve()
+    public Mono<Void> update(LinkUpdate linkUpdate) {
+        return this.webClient.post().uri("/update").bodyValue(linkUpdate).retrieve()
             .bodyToMono(Void.class);
     }
 }

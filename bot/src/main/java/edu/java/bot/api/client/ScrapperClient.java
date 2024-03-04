@@ -2,6 +2,7 @@ package edu.java.bot.api.client;
 
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import java.net.URI;
 
 public class ScrapperClient {
     private static final String LINKS = "/links";
@@ -15,14 +16,18 @@ public class ScrapperClient {
         return this.webClient.post().uri("/tg-chat/{id}", id).retrieve()
             .bodyToMono(Void.class);
     }
-
-    public Mono<Void> getLinks() {
-        return this.webClient.get().uri(LINKS).retrieve()
+    public Mono<Void> deleteChat(Long id) {
+        return this.webClient.post().uri("/tg-chat/{id}", id).retrieve()
             .bodyToMono(Void.class);
     }
 
-    public Mono<Void> postLinks() {
-        return this.webClient.post().uri(LINKS).retrieve()
+    public Mono<Void> getLinks(Long id) {
+        return this.webClient.get().uri(LINKS).header(id.toString()).retrieve()
+            .bodyToMono(Void.class);
+    }
+
+    public Mono<Void> postLinks(URI uri, Long id) {
+        return this.webClient.post().uri(LINKS).header(id.toString()).bodyValue(uri).retrieve()
             .bodyToMono(Void.class);
     }
 }
