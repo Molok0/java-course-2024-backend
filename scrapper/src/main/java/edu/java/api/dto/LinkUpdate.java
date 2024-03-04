@@ -124,10 +124,10 @@ public class LinkUpdate {
             return false;
         }
         LinkUpdate linkUpdate = (LinkUpdate) o;
-        return Objects.equals(this.id, linkUpdate.id) &&
-            Objects.equals(this.url, linkUpdate.url) &&
-            Objects.equals(this.description, linkUpdate.description) &&
-            Objects.equals(this.tgChatIds, linkUpdate.tgChatIds);
+        return Objects.equals(this.id, linkUpdate.id)
+            && Objects.equals(this.url, linkUpdate.url)
+            && Objects.equals(this.description, linkUpdate.description)
+            && Objects.equals(this.tgChatIds, linkUpdate.tgChatIds);
     }
 
     @Override

@@ -77,8 +77,8 @@ public class ListLinksResponse {
       return false;
     }
     ListLinksResponse listLinksResponse = (ListLinksResponse) o;
-    return Objects.equals(this.links, listLinksResponse.links) &&
-        Objects.equals(this.size, listLinksResponse.size);
+    return Objects.equals(this.links, listLinksResponse.links)
+        && Objects.equals(this.size, listLinksResponse.size);
   }
 
   @Override
