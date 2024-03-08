@@ -1,6 +1,10 @@
 package edu.java.bot.api.client;
 
 import java.net.URI;
+import edu.java.bot.api.dto.AddLinkRequest;
+import edu.java.bot.api.dto.LinkResponse;
+import edu.java.bot.api.dto.ListLinksResponse;
+import edu.java.bot.api.dto.RemoveLinkRequest;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -23,18 +27,18 @@ public class ScrapperClient {
             .bodyToMono(Void.class);
     }
 
-    public Mono<Void> getLinks(Long id) {
+    public Mono<ListLinksResponse> getLinks(Long id) {
         return this.webClient.get().uri(LINKS).header(id.toString()).retrieve()
-            .bodyToMono(Void.class);
+            .bodyToMono(ListLinksResponse.class);
     }
 
-    public Mono<Void> postLinks(URI uri, Long id) {
-        return this.webClient.post().uri(LINKS).header(id.toString()).bodyValue(uri).retrieve()
-            .bodyToMono(Void.class);
+    public Mono<LinkResponse> postLinks(AddLinkRequest addLinkRequest, Long id) {
+        return this.webClient.post().uri(LINKS).header(id.toString()).bodyValue(addLinkRequest).retrieve()
+            .bodyToMono(LinkResponse.class);
     }
 
-    public Mono<Void> deleteLinks(URI uri, Long id) {
-        return this.webClient.post().uri(LINKS).header(id.toString()).bodyValue(uri).retrieve()
-            .bodyToMono(Void.class);
+    public Mono<LinkResponse> deleteLinks(RemoveLinkRequest removeLinkRequest, Long id) {
+        return this.webClient.post().uri(LINKS).header(id.toString()).bodyValue(removeLinkRequest).retrieve()
+            .bodyToMono(LinkResponse.class);
     }
 }
