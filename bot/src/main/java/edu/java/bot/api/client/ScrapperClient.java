@@ -1,6 +1,5 @@
 package edu.java.bot.api.client;
 
-import java.net.URI;
 import edu.java.bot.api.dto.AddLinkRequest;
 import edu.java.bot.api.dto.LinkResponse;
 import edu.java.bot.api.dto.ListLinksResponse;

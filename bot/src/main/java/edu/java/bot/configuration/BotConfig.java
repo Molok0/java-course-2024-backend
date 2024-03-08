@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class BotConfig {
     private WebClient.Builder webClientBuilder;
+
     @Autowired
     public BotConfig(WebClient.Builder webClientBuilder) {
         this.webClientBuilder = webClientBuilder;
