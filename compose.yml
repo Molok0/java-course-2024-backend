@@ -16,6 +16,7 @@ services:
     depends_on:
       - postgresql
     command:
+      - --search-path=/liquibase/changelog
       - --changelog-file=master.xml
       - --driver=org.postgresql.Driver
       - --url=jdbc:postgresql://postgresql:5432/scrapper
@@ -23,7 +24,7 @@ services:
       - --password=postgres
       - update
     volumes:
-      - ./migrations:/liquibase/changelog
+      - ./migrations/liquibase:/liquibase/changelog
     networks:
       - backend
 
