@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS CHAT
+(
+    id  bigint GENERATED ALWAYS AS IDENTITY,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS URL
+(
+    id             bigint GENERATED ALWAYS AS IDENTITY,
+    uri            TEXT  NOT NULL,
+    chat_id        BIGINT NOT NULL,
+
+    PRIMARY KEY (id),
+    FOREIGN KEY (chat_id) REFERENCES CHAT(id)
+);
+
