@@ -164,12 +164,6 @@
             <version>2.3.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-        
         <!-- Database -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
