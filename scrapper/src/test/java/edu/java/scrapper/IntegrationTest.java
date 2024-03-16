@@ -37,7 +37,7 @@ public abstract class IntegrationTest {
     private static void runMigrations(JdbcDatabaseContainer<?> c) {
         Path changelog =
             new File(".").toPath().toAbsolutePath().getParent().getParent().resolve("migrations/liquibase");
-        System.out.println(changelog.toAbsolutePath());
+
         try (var conn = DriverManager.getConnection(c.getJdbcUrl(), c.getUsername(), c.getPassword())) {
             Liquibase
                 liquibase =
