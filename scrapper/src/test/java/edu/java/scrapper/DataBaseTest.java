@@ -43,4 +43,35 @@ public class DataBaseTest extends IntegrationTest{
             throw new RuntimeException(e);
         }
     }
+    @Test
+    public void testContainerCreateColumUrlIdInCHAT_URL() {
+        try(var conn = POSTGRES.createConnection("")) {
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM CHAT_URL");
+            String result = preparedStatement.executeQuery().getMetaData().getColumnName(1);
+            assertThat(result).isEqualTo("url_id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void testContainerCreateColumChatIdInCHAT_URL() {
+        try(var conn = POSTGRES.createConnection("")) {
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM CHAT_URL");
+            String result = preparedStatement.executeQuery().getMetaData().getColumnName(2);
+            assertThat(result).isEqualTo("chat_id");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    public void testContainerCreateColumLastCheckInURL() {
+        try(var conn = POSTGRES.createConnection("")) {
+            PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM URL");
+            String result = preparedStatement.executeQuery().getMetaData().getColumnName(3);
+            assertThat(result).isEqualTo("last_check");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

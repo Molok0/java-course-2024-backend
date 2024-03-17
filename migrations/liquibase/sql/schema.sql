@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS URL
 (
     id             bigint GENERATED ALWAYS AS IDENTITY,
     url            TEXT  NOT NULL,
+    last_check     TIME NOT NULL,
+
     PRIMARY KEY (id)
 );
 
