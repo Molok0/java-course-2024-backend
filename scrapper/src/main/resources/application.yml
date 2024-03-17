@@ -8,9 +8,16 @@ app:
       github_default_url: https://api.github.com/
       bot_default_url: http://localhost:8090
 
+
 spring:
   application:
     name: scrapper
+  datasource:
+    spring-jdbc:
+      url: jdbc:postgresql://postgresql:5432/scrapper
+      driver-class-name: org.postgresql.Driver
+      username: ${APP_POSTGRES_USERNAME}
+      password: ${APP_POSTGRES_PASSWORD}
 
 springdoc:
   swagger-ui:
