@@ -26,13 +26,30 @@ public class JdbcChatTest extends IntegrationTest {
         TgChat tgChat = new TgChat();
         tgChat.setId(1l);
         chatRepository.add(tgChat);
-        assertThat(1l).isEqualTo(chatRepository.findAll().get(0));
+        assertThat(1l).isEqualTo(chatRepository.findAll().get(0).getId());
     }
 
     @Test
     @Transactional
     @Rollback
     void removeTest() {
-
+        TgChat tgChat = new TgChat();
+        tgChat.setId(1l);
+        chatRepository.add(tgChat);
+        chatRepository.remove(tgChat);
+        var chats = chatRepository.findAll();
+        assertThat(chats.isEmpty()).isTrue();
+    }
+    @Test
+    void findAllTest(){
+        TgChat tgChat = new TgChat();
+        TgChat tgChat2 = new TgChat();
+        tgChat.setId(1l);
+        tgChat2.setId(3l);
+        chatRepository.add(tgChat);
+        chatRepository.add(tgChat2);
+        var chats = chatRepository.findAll();
+        assertThat(1l).isEqualTo(chats.get(0).getId());
+        assertThat(3l).isEqualTo(chats.get(1).getId());
     }
 }
