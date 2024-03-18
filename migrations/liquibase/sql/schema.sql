@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS CHAT
 (
-    id  bigint GENERATED ALWAYS AS IDENTITY,
-    tgId bigint not null ,
+    id  bigint not null,
     PRIMARY KEY (id)
 );
 

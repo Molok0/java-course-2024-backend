@@ -1,4 +1,4 @@
 package edu.java.api.model.mapper;
 
-public class UrlMapper {
+public class UrlMapper  {
 }

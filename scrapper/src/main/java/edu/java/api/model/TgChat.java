@@ -1,6 +1,7 @@
 package edu.java.api.model;
 
 public class TgChat {
+
     private Long id;
 
     public Long getId() {
@@ -11,13 +12,4 @@ public class TgChat {
         this.id = id;
     }
 
-    public Long getTgChatId() {
-        return tgChatId;
-    }
-
-    public void setTgChatId(Long tgChatId) {
-        this.tgChatId = tgChatId;
-    }
-
-    private Long tgChatId;
 }
