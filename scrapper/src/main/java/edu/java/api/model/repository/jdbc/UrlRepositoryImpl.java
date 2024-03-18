@@ -1,8 +1,8 @@
-package edu.java.api.model.repository;
+package edu.java.api.model.repository.jdbc;
 
 import edu.java.api.model.Url;
 import edu.java.api.model.mapper.UrlMapper;
-import edu.java.api.model.repository.interfaces.LinkRepository;
+import edu.java.api.model.repository.interfaces.UrlRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class LinkRepositoryImpl implements LinkRepository {
+public class UrlRepositoryImpl implements UrlRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public LinkRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public UrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

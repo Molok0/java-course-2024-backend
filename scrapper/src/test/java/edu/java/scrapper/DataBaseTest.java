@@ -74,4 +74,22 @@ public class DataBaseTest extends IntegrationTest{
         }
     }
 
+    @Test
+    public void testContainerAddEntityInURL() {
+        try(var conn = POSTGRES.createConnection("")) {
+            PreparedStatement insert = conn.prepareStatement("INSERT INTO CHAT VALUES (2)");
+            insert.execute();
+
+            PreparedStatement select = conn.prepareStatement("SELECT * FROM CHAT");
+            var resultSet = select.executeQuery();
+
+            resultSet.next();
+            int value = resultSet.getInt(1);
+            assertThat(value).isEqualTo(2);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
