@@ -1,9 +1,9 @@
 package edu.java.api.model.mapper;
 
 import edu.java.api.model.TgChat;
-import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.springframework.jdbc.core.RowMapper;
 
 public class TgChatMapper implements RowMapper {
     @Override
