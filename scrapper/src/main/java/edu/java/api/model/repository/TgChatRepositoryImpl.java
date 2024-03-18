@@ -2,6 +2,7 @@ package edu.java.api.model.repository;
 
 import edu.java.api.model.TgChat;
 import edu.java.api.model.mapper.TgChatMapper;
+import edu.java.api.model.repository.interfaces.TgChatRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

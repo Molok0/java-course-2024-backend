@@ -1,4 +1,4 @@
-package edu.java.api.model.repository;
+package edu.java.api.model.repository.interfaces;
 
 import edu.java.api.model.TgChat;
 import java.util.List;
