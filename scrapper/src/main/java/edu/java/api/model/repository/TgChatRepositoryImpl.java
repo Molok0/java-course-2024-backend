@@ -6,9 +6,10 @@ import edu.java.api.model.repository.interfaces.TgChatRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Repository
 public class TgChatRepositoryImpl implements TgChatRepository {
     private JdbcTemplate jdbcTemplate;
 
@@ -18,11 +19,13 @@ public class TgChatRepositoryImpl implements TgChatRepository {
     }
 
     @Override
+    @Transactional
     public void add(TgChat tgChat) {
         jdbcTemplate.update("INSERT INTO CHAT VALUES (?)", tgChat.getId());
     }
 
     @Override
+    @Transactional
     public void remove(TgChat tgChat) {
         jdbcTemplate.update("DELETE FROM CHAT WHERE id=?", tgChat.getId());
     }

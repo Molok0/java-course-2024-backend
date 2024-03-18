@@ -6,9 +6,10 @@ import edu.java.api.model.repository.interfaces.LinkRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Repository
 public class LinkRepositoryImpl implements LinkRepository {
     private JdbcTemplate jdbcTemplate;
 
@@ -18,11 +19,13 @@ public class LinkRepositoryImpl implements LinkRepository {
     }
 
     @Override
+    @Transactional
     public void add(Url url) {
         jdbcTemplate.update("INSERT INTO URL VALUES (?, ?, ?)", url.getId(), url.getUrl(), url.getLastCheck());
     }
 
     @Override
+    @Transactional
     public void remove(Url url) {
         jdbcTemplate.update("DELETE FROM URL WHERE id=?", url.getId());
     }
