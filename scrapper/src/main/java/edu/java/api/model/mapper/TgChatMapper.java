@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 public class TgChatMapper implements RowMapper {
+    private static final String ID = "id";
+
     @Override
     public TgChat mapRow(ResultSet rs, int rowNum) throws SQLException {
         TgChat tgChat = new TgChat();
-        tgChat.setId(rs.getLong("id"));
+        tgChat.setId(rs.getLong(ID));
         return tgChat;
     }
 }

@@ -4,9 +4,9 @@ import edu.java.api.model.TgChat;
 import java.util.List;
 
 public interface TgChatRepository {
-    void add(TgChat tgChat);
+    void add(Long id);
 
-    void remove(TgChat tgChat);
+    void remove(Long id);
 
     List<TgChat> findAll();
 }

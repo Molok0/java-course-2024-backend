@@ -1,7 +1,8 @@
 package edu.java.api.handlers;
 
-import edu.java.api.controllers.ScrapperController;
-import edu.java.scrapper.ApiErrorResponse;
+import edu.java.api.controllers.TgChatController;
+import edu.java.api.controllers.UrlController;
+import edu.java.generation.ApiErrorResponse;
 import java.util.Arrays;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(basePackageClasses = {ScrapperController.class})
+@RestControllerAdvice(basePackageClasses = {TgChatController.class, UrlController.class})
 public class ExceptionApiHandler {
 
     @ExceptionHandler(NullPointerException.class)

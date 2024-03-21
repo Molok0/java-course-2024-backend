@@ -232,6 +232,7 @@
                             <modelPackage>edu.java.scrapper</modelPackage>
                             <output>${project.build.directory}/generated-sources</output>
                             <configOptions>
+                                <reactive>true</reactive>
                                 <interfaceOnly>true</interfaceOnly>
                                 <useSpringBoot3>true</useSpringBoot3>
                             </configOptions>

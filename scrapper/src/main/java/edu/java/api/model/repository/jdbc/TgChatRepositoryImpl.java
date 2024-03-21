@@ -20,14 +20,14 @@ public class TgChatRepositoryImpl implements TgChatRepository {
 
     @Override
     @Transactional
-    public void add(TgChat tgChat) {
-        jdbcTemplate.update("INSERT INTO CHAT VALUES (?)", tgChat.getId());
+    public void add(Long id) {
+        jdbcTemplate.update("INSERT INTO CHAT VALUES (?)", id);
     }
 
     @Override
     @Transactional
-    public void remove(TgChat tgChat) {
-        jdbcTemplate.update("DELETE FROM CHAT WHERE id=?", tgChat.getId());
+    public void remove(Long id) {
+        jdbcTemplate.update("DELETE FROM CHAT WHERE id=?", id);
     }
 
     @Override
