@@ -16,9 +16,9 @@ import reactor.core.publisher.Mono;
 @Service
 public class JdbcUrlServiceImpl implements UrlService {
 
-    private TgChatUrlRepositoryImpl tgChatUrlRepository;
-    private TgChatRepositoryImpl tgChatRepository;
-    private UrlRepositoryImpl urlRepository;
+    private final TgChatUrlRepositoryImpl tgChatUrlRepository;
+    private final TgChatRepositoryImpl tgChatRepository;
+    private final UrlRepositoryImpl urlRepository;
 
     @Autowired
     public JdbcUrlServiceImpl(

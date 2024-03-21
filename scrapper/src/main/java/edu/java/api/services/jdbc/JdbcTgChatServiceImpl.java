@@ -11,8 +11,8 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class JdbcTgChatServiceImpl implements TgChatService {
-    private TgChatRepositoryImpl tgChatRepository;
-    private TgChatUrlRepositoryImpl tgChatUrlRepository;
+    private final TgChatRepositoryImpl tgChatRepository;
+    private final TgChatUrlRepositoryImpl tgChatUrlRepository;
 
     @Autowired
     public JdbcTgChatServiceImpl(
@@ -26,16 +26,12 @@ public class JdbcTgChatServiceImpl implements TgChatService {
     public Mono<ResponseEntity<Void>> regNewTgChat(Long id) {
         return Mono.fromRunnable(() -> tgChatRepository.add(id))
             .then(Mono.just(ResponseEntity.ok().<Void>build()))
-            .onErrorResume(error -> {
-                return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
-            });
+            .onErrorResume(error -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));
     }
 
     public Mono<ResponseEntity<Void>> deleteTgChat(Long id) {
         return Mono.fromRunnable(() -> tgChatRepository.remove(id))
             .then(Mono.just(ResponseEntity.ok().<Void>build()))
-            .onErrorResume(error -> {
-                return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-            });
+            .onErrorResume(error -> Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
     }
 }
