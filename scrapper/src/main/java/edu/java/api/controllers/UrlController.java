@@ -1,6 +1,6 @@
 package edu.java.api.controllers;
 
-import edu.java.api.services.UrlServiceImpl;
+import edu.java.api.services.jdbc.JdbcUrlServiceImpl;
 import edu.java.generation.AddLinkRequest;
 import edu.java.generation.LinkResponse;
 import edu.java.generation.LinksApi;
@@ -15,10 +15,10 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequiredArgsConstructor
 public class UrlController implements LinksApi {
-    private UrlServiceImpl urlService;
+    private JdbcUrlServiceImpl urlService;
 
     @Autowired
-    public UrlController(UrlServiceImpl urlService) {
+    public UrlController(JdbcUrlServiceImpl urlService) {
         this.urlService = urlService;
     }
 

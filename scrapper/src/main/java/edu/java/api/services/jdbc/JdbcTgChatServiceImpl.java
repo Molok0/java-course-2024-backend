@@ -1,4 +1,4 @@
-package edu.java.api.services;
+package edu.java.api.services.jdbc;
 
 import edu.java.api.model.repository.jdbc.TgChatRepositoryImpl;
 import edu.java.api.model.repository.jdbc.TgChatUrlRepositoryImpl;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class TgChatServiceImpl implements TgChatService {
+public class JdbcTgChatServiceImpl implements TgChatService {
     private TgChatRepositoryImpl tgChatRepository;
     private TgChatUrlRepositoryImpl tgChatUrlRepository;
 
     @Autowired
-    public TgChatServiceImpl(
+    public JdbcTgChatServiceImpl(
         TgChatRepositoryImpl tgChatRepository,
         TgChatUrlRepositoryImpl tgChatUrlRepository
     ) {
@@ -23,7 +23,6 @@ public class TgChatServiceImpl implements TgChatService {
     }
 
     public Mono<ResponseEntity<Void>> regNewTgChat(Long id) {
-        tgChatRepository.add(id);
         return null;
     }
 

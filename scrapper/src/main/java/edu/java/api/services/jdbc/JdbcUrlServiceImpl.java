@@ -1,4 +1,4 @@
-package edu.java.api.services;
+package edu.java.api.services.jdbc;
 
 import edu.java.api.model.repository.jdbc.TgChatRepositoryImpl;
 import edu.java.api.model.repository.jdbc.TgChatUrlRepositoryImpl;
@@ -14,14 +14,14 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @Service
-public class UrlServiceImpl implements UrlService {
+public class JdbcUrlServiceImpl implements UrlService {
 
     private TgChatUrlRepositoryImpl tgChatUrlRepository;
     private TgChatRepositoryImpl tgChatRepository;
     private UrlRepositoryImpl urlRepository;
 
     @Autowired
-    public UrlServiceImpl(
+    public JdbcUrlServiceImpl(
         TgChatUrlRepositoryImpl tgChatUrlRepository,
         TgChatRepositoryImpl tgChatRepository,
         UrlRepositoryImpl urlRepository

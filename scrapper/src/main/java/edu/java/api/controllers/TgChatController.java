@@ -1,6 +1,6 @@
 package edu.java.api.controllers;
 
-import edu.java.api.services.TgChatServiceImpl;
+import edu.java.api.services.jdbc.JdbcTgChatServiceImpl;
 import edu.java.generation.TgChatApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,10 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequiredArgsConstructor
 public class TgChatController implements TgChatApi {
-    private TgChatServiceImpl tgChatService;
+    private JdbcTgChatServiceImpl tgChatService;
 
     @Autowired
-    public TgChatController(TgChatServiceImpl tgChatService) {
+    public TgChatController(JdbcTgChatServiceImpl tgChatService) {
         this.tgChatService = tgChatService;
     }
 
