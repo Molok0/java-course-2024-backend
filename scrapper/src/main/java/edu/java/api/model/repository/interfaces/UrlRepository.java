@@ -4,9 +4,9 @@ import edu.java.api.model.Url;
 import java.util.List;
 
 public interface UrlRepository {
-    void add(Url url);
+    void add(String url);
 
-    void remove(Url url);
+    void remove(String url);
 
     List<Url> findAll();
 }

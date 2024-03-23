@@ -3,6 +3,8 @@ package edu.java.api.model.repository.jdbc;
 import edu.java.api.model.Url;
 import edu.java.api.model.mapper.UrlMapper;
 import edu.java.api.model.repository.interfaces.UrlRepository;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,14 +22,14 @@ public class UrlRepositoryImpl implements UrlRepository {
 
     @Override
     @Transactional
-    public void add(Url url) {
-        jdbcTemplate.update("INSERT INTO URL VALUES (?, ?, ?)", url.getId(), url.getUrl(), url.getLastCheck());
+    public void add(String url) {
+        jdbcTemplate.update("INSERT INTO URL VALUES (?, ?, ?)", url, LocalTime.now());
     }
 
     @Override
     @Transactional
-    public void remove(Url url) {
-        jdbcTemplate.update("DELETE FROM URL WHERE id=?", url.getId());
+    public void remove(String url) {
+        jdbcTemplate.update("DELETE FROM URL WHERE url=?", url);
     }
 
     @Override

@@ -36,7 +36,12 @@ public class TgChatUrlRepositoryImpl implements TgChatUrlRepository {
     }
 
     @Override
-    public List<TgChat> findAll() {
+    public List<TgChatUrl> findAll() {
         return jdbcTemplate.query("SELECT * FROM CHAT_URL", new TgChatUrlMapper());
+    }
+
+    @Override
+    public List<String> findByTgChatId(Long id) {
+        return null;
     }
 }
