@@ -1,7 +1,6 @@
 package edu.java.api.services.jdbc;
 
 import edu.java.api.model.TgChatUrl;
-import edu.java.api.model.repository.jdbc.TgChatRepositoryImpl;
 import edu.java.api.model.repository.jdbc.TgChatUrlRepositoryImpl;
 import edu.java.api.model.repository.jdbc.UrlRepositoryImpl;
 import edu.java.api.services.interfaces.UrlService;
@@ -9,9 +8,7 @@ import edu.java.generation.AddLinkRequest;
 import edu.java.generation.LinkResponse;
 import edu.java.generation.ListLinksResponse;
 import edu.java.generation.RemoveLinkRequest;
-
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

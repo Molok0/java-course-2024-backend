@@ -4,7 +4,6 @@ import edu.java.api.model.Url;
 import edu.java.api.model.mapper.UrlMapper;
 import edu.java.api.model.repository.interfaces.UrlRepository;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

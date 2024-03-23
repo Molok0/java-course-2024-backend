@@ -1,6 +1,5 @@
 package edu.java.api.model.repository.jdbc;
 
-import edu.java.api.model.TgChat;
 import edu.java.api.model.TgChatUrl;
 import edu.java.api.model.mapper.TgChatUrlMapper;
 import edu.java.api.model.repository.interfaces.TgChatUrlRepository;
