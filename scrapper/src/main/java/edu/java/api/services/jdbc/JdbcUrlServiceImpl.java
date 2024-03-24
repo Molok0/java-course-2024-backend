@@ -10,6 +10,7 @@ import edu.java.generation.ListLinksResponse;
 import edu.java.generation.RemoveLinkRequest;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -31,22 +32,19 @@ public class JdbcUrlServiceImpl implements UrlService {
     }
 
     public Mono<ResponseEntity<LinkResponse>> addLinks(Long tgChatId, Mono<AddLinkRequest> addLinkRequest) {
-        return addLinkRequest.map(addLinkRequest1 -> {
+        return addLinkRequest.map(request -> {
 
-            urlRepository.add(addLinkRequest1.toString());
+            urlRepository.add(request.getLink().toString());
 
-            var urlId = urlRepository.findAll().getFirst();
+            Long urlId = urlRepository.getId(request.getLink().toString());
             TgChatUrl tgChatUrl = new TgChatUrl();
             tgChatUrl.setTgChatId(tgChatId);
-            tgChatUrl.setUrlId(urlId.getId());
+            tgChatUrl.setUrlId(urlId);
 
             tgChatUrlRepository.add(tgChatUrl);
 
             LinkResponse linkResponse = new LinkResponse();
-            linkResponse.url(addLinkRequest1.getLink());
-            linkResponse.id(tgChatId);
-
-            return ResponseEntity.ok(linkResponse);
+            return ResponseEntity.ok(linkResponse.url(request.getLink()).id(tgChatId));
         });
     }
 
@@ -54,10 +52,8 @@ public class JdbcUrlServiceImpl implements UrlService {
 
         List<LinkResponse> urls = tgChatUrlRepository.findByTgChatId(tgChatId).stream().map(url -> {
             LinkResponse linkResponse = new LinkResponse();
-            linkResponse.id(tgChatId);
-            linkResponse.url(URI.create(url));
-            return linkResponse;
-        }).toList();
+            return linkResponse.url(URI.create(url)).id(tgChatId);
+        }).collect(Collectors.toList());
 
         ListLinksResponse listLinksResponse = new ListLinksResponse();
         listLinksResponse.setLinks(urls);
@@ -66,6 +62,13 @@ public class JdbcUrlServiceImpl implements UrlService {
     }
 
     public Mono<ResponseEntity<LinkResponse>> deleteLink(Long tgChatId, Mono<RemoveLinkRequest> removeLinkRequest) {
-        return null;
+        return removeLinkRequest.map(request -> {
+            TgChatUrl tgChatUrl = new TgChatUrl();
+            Long urlId = urlRepository.getId(request.getLink().toString());
+            tgChatUrl.setUrlId(urlId);
+            tgChatUrl.setTgChatId(tgChatId);
+            tgChatUrlRepository.remove(tgChatUrl);
+            return ResponseEntity.ok(new LinkResponse().url(request.getLink()).id(tgChatId));
+        });
     }
 }

@@ -35,4 +35,9 @@ public class UrlRepositoryImpl implements UrlRepository {
     public List<Url> findAll() {
         return jdbcTemplate.query("select * from URL", new UrlMapper());
     }
+
+    @Override
+    public Long getId(String url) {
+        return jdbcTemplate.queryForObject("SELECT id FROM URL WHERE url=?", Long.class, url);
+    }
 }

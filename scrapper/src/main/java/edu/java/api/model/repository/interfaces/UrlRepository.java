@@ -9,4 +9,6 @@ public interface UrlRepository {
     void remove(String url);
 
     List<Url> findAll();
+
+    Long getId(String url);
 }
