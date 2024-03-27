@@ -63,7 +63,7 @@ public interface LinksApi {
         @NotNull @Parameter(name = "Tg-Chat-Id", description = "", required = true, in = ParameterIn.HEADER)
         @RequestHeader(value = "Tg-Chat-Id", required = true) Long tgChatId,
         @Parameter(name = "RemoveLinkRequest", description = "", required = true) @Valid @RequestBody
-        Mono<RemoveLinkRequest> removeLinkRequest
+        RemoveLinkRequest removeLinkRequest
     );
 
     /**

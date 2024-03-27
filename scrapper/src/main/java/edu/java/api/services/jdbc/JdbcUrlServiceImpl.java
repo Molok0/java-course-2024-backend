@@ -33,18 +33,17 @@ public class JdbcUrlServiceImpl implements UrlService {
 
     public Mono<ResponseEntity<LinkResponse>> addLinks(Long tgChatId, AddLinkRequest addLinkRequest) {
 
+        urlRepository.add(addLinkRequest.getLink().toString());
 
-            urlRepository.add(addLinkRequest.getLink().toString());
+        Long urlId = urlRepository.getId(addLinkRequest.getLink().toString());
 
-            Long urlId = urlRepository.getId(addLinkRequest.getLink().toString());
+        TgChatUrl tgChatUrl = new TgChatUrl();
+        tgChatUrl.setTgChatId(tgChatId);
+        tgChatUrl.setUrlId(urlId);
 
-            TgChatUrl tgChatUrl = new TgChatUrl();
-            tgChatUrl.setTgChatId(tgChatId);
-            tgChatUrl.setUrlId(urlId);
-
-            tgChatUrlRepository.add(tgChatUrl);
-            LinkResponse linkResponse = new LinkResponse();
-            return Mono.just(ResponseEntity.ok(linkResponse.url(addLinkRequest.getLink()).id(tgChatId)));
+        tgChatUrlRepository.add(tgChatUrl);
+        LinkResponse linkResponse = new LinkResponse();
+        return Mono.just(ResponseEntity.ok(linkResponse.url(addLinkRequest.getLink()).id(tgChatId)));
 
     }
 
@@ -61,14 +60,17 @@ public class JdbcUrlServiceImpl implements UrlService {
         return Mono.just(ResponseEntity.ok(listLinksResponse));
     }
 
-    public Mono<ResponseEntity<LinkResponse>> deleteLink(Long tgChatId, Mono<RemoveLinkRequest> removeLinkRequest) {
-        return removeLinkRequest.map(request -> {
-            TgChatUrl tgChatUrl = new TgChatUrl();
-            Long urlId = urlRepository.getId(request.getLink().toString());
-            tgChatUrl.setUrlId(urlId);
-            tgChatUrl.setTgChatId(tgChatId);
-            tgChatUrlRepository.remove(tgChatUrl);
-            return ResponseEntity.ok(new LinkResponse().url(request.getLink()).id(tgChatId));
-        });
+    public Mono<ResponseEntity<LinkResponse>> deleteLink(Long tgChatId, RemoveLinkRequest removeLinkRequest) {
+
+        TgChatUrl tgChatUrl = new TgChatUrl();
+
+        Long urlId = urlRepository.getId(removeLinkRequest.getLink().toString());
+        tgChatUrl.setUrlId(urlId);
+        tgChatUrl.setTgChatId(tgChatId);
+
+        tgChatUrlRepository.remove(tgChatUrl);
+
+        return Mono.just(ResponseEntity.ok(new LinkResponse().url(removeLinkRequest.getLink()).id(tgChatId)));
+
     }
 }

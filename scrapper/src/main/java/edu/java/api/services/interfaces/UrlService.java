@@ -12,5 +12,5 @@ public interface UrlService {
 
     Mono<ResponseEntity<ListLinksResponse>> getAllLinks(Long tgChatId);
 
-    Mono<ResponseEntity<LinkResponse>> deleteLink(Long tgChatId, Mono<RemoveLinkRequest> removeLinkRequest);
+    Mono<ResponseEntity<LinkResponse>> deleteLink(Long tgChatId, RemoveLinkRequest removeLinkRequest);
 }

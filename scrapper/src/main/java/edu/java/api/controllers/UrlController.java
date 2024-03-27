@@ -25,7 +25,7 @@ public class UrlController implements LinksApi {
     @Override
     public Mono<ResponseEntity<LinkResponse>> linksDelete(
         Long tgChatId,
-        Mono<RemoveLinkRequest> removeLinkRequest
+        RemoveLinkRequest removeLinkRequest
     ) {
         return urlService.deleteLink(tgChatId, removeLinkRequest);
     }

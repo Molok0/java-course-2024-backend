@@ -28,7 +28,10 @@ public class JdbcTgChatServiceImpl implements TgChatService {
     }
 
     public Mono<ResponseEntity<Void>> deleteTgChat(Long id) {
-        return Mono.fromRunnable(() -> tgChatRepository.remove(id))
+        return Mono.fromRunnable(() -> {
+                tgChatUrlRepository.removeByTgChatId(id);
+                tgChatRepository.remove(id);
+            })
             .then(Mono.just(ResponseEntity.ok().<Void>build()));
     }
 }
