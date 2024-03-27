@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import reactor.core.publisher.Mono;
 
 public interface UrlService {
-    Mono<ResponseEntity<LinkResponse>> addLinks(Long tgChatId, Mono<AddLinkRequest> addLinkRequest);
+    Mono<ResponseEntity<LinkResponse>> addLinks(Long tgChatId, AddLinkRequest addLinkRequest);
 
     Mono<ResponseEntity<ListLinksResponse>> getAllLinks(Long tgChatId);
 

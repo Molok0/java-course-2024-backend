@@ -38,7 +38,7 @@ public class UrlController implements LinksApi {
     @Override
     public Mono<ResponseEntity<LinkResponse>> linksPost(
         Long tgChatId,
-        Mono<AddLinkRequest> addLinkRequest
+        AddLinkRequest addLinkRequest
     ) {
         return urlService.addLinks(tgChatId, addLinkRequest);
     }

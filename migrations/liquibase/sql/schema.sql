@@ -10,7 +10,8 @@ CREATE TABLE IF NOT EXISTS URL
     url            TEXT  NOT NULL,
     last_check     TIME NOT NULL,
 
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    CONSTRAINT unique_url UNIQUE (url)
 );
 
 CREATE TABLE IF NOT EXISTS CHAT_URL

@@ -11,4 +11,6 @@ public interface UrlRepository {
     List<Url> findAll();
 
     Long getId(String url);
+
+    String findById(Long id);
 }

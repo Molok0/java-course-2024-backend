@@ -31,28 +31,28 @@ public class JdbcUrlServiceImpl implements UrlService {
         this.urlRepository = urlRepository;
     }
 
-    public Mono<ResponseEntity<LinkResponse>> addLinks(Long tgChatId, Mono<AddLinkRequest> addLinkRequest) {
-        return addLinkRequest.map(request -> {
+    public Mono<ResponseEntity<LinkResponse>> addLinks(Long tgChatId, AddLinkRequest addLinkRequest) {
 
-            urlRepository.add(request.getLink().toString());
 
-            Long urlId = urlRepository.getId(request.getLink().toString());
+            urlRepository.add(addLinkRequest.getLink().toString());
+
+            Long urlId = urlRepository.getId(addLinkRequest.getLink().toString());
+
             TgChatUrl tgChatUrl = new TgChatUrl();
             tgChatUrl.setTgChatId(tgChatId);
             tgChatUrl.setUrlId(urlId);
 
             tgChatUrlRepository.add(tgChatUrl);
-
             LinkResponse linkResponse = new LinkResponse();
-            return ResponseEntity.ok(linkResponse.url(request.getLink()).id(tgChatId));
-        });
+            return Mono.just(ResponseEntity.ok(linkResponse.url(addLinkRequest.getLink()).id(tgChatId)));
+
     }
 
     public Mono<ResponseEntity<ListLinksResponse>> getAllLinks(Long tgChatId) {
 
-        List<LinkResponse> urls = tgChatUrlRepository.findByTgChatId(tgChatId).stream().map(url -> {
+        List<LinkResponse> urls = tgChatUrlRepository.findByTgChatId(tgChatId).stream().map(urlId -> {
             LinkResponse linkResponse = new LinkResponse();
-            return linkResponse.url(URI.create(url)).id(tgChatId);
+            return linkResponse.url(URI.create(urlRepository.findById(urlId))).id(tgChatId);
         }).collect(Collectors.toList());
 
         ListLinksResponse listLinksResponse = new ListLinksResponse();

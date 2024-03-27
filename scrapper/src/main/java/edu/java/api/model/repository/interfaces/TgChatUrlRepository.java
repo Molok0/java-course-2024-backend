@@ -10,5 +10,5 @@ public interface TgChatUrlRepository {
 
     List<TgChatUrl> findAll();
 
-    List<String> findByTgChatId(Long id);
+    List<Long> findByTgChatId(Long id);
 }

@@ -21,14 +21,14 @@ public class TgChatUrlRepositoryImpl implements TgChatUrlRepository {
     @Override
     @Transactional
     public void add(TgChatUrl tgChatUrl) {
-        jdbcTemplate.update("INSERT INTO CHAT VALUES (?, ?)", tgChatUrl.getUrlId(), tgChatUrl.getTgChatId());
+        jdbcTemplate.update("INSERT INTO CHAT_URL VALUES (?, ?)", tgChatUrl.getUrlId(), tgChatUrl.getTgChatId());
     }
 
     @Override
     @Transactional
     public void remove(TgChatUrl tgChatUrl) {
         jdbcTemplate.update(
-            "DELETE FROM URL WHERE url_id=? AND chat_id=?",
+            "DELETE FROM CHAT_URL WHERE url_id=? AND chat_id=?",
             tgChatUrl.getUrlId(),
             tgChatUrl.getTgChatId()
         );
@@ -40,7 +40,11 @@ public class TgChatUrlRepositoryImpl implements TgChatUrlRepository {
     }
 
     @Override
-    public List<String> findByTgChatId(Long id) {
-        return null;
+    public List<Long> findByTgChatId(Long id) {
+        return jdbcTemplate.query(
+            "SELECT url_id FROM CHAT_URL WHERE chat_id=?",
+            (rs, rowNum) -> rs.getLong("url_id"),
+            id
+        );
     }
 }

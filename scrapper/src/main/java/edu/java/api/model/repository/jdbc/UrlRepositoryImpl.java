@@ -22,7 +22,7 @@ public class UrlRepositoryImpl implements UrlRepository {
     @Override
     @Transactional
     public void add(String url) {
-        jdbcTemplate.update("INSERT INTO URL VALUES (?, ?, ?)", url, LocalTime.now());
+        jdbcTemplate.update("INSERT INTO URL (url, last_check) VALUES (?, ?)", url, LocalTime.now());
     }
 
     @Override
@@ -39,5 +39,10 @@ public class UrlRepositoryImpl implements UrlRepository {
     @Override
     public Long getId(String url) {
         return jdbcTemplate.queryForObject("SELECT id FROM URL WHERE url=?", Long.class, url);
+    }
+
+    @Override
+    public String findById(Long id) {
+        return jdbcTemplate.queryForObject("SELECT url FROM URL WHERE id=?", String.class, id);
     }
 }

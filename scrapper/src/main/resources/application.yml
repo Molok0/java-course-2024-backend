@@ -1,21 +1,20 @@
 app:
   scheduler:
     enable: true
-    interval: 7s
+    interval: 30s
     force-check-delay: 10s
   url_client:
       stackoverflow_default_url: https://api.stackexchange.com/2.3/
       github_default_url: https://api.github.com/
       bot_default_url: http://localhost:8090
 
-
 spring:
   application:
     name: scrapper
   datasource:
-      url: jdbc:postgresql://postgresql:5432/scrapper
-      username: ${APP_POSTGRES_USERNAME}
-      password: ${APP_POSTGRES_PASSWORD}
+      url: jdbc:postgresql://localhost:5437/scrapper
+      username: postgres
+      password: postgres
 
 springdoc:
   swagger-ui:
