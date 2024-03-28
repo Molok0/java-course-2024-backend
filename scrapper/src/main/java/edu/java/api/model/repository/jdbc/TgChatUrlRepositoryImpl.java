@@ -48,9 +48,4 @@ public class TgChatUrlRepositoryImpl implements TgChatUrlRepository {
         );
     }
 
-    @Override
-    @Transactional
-    public void removeByTgChatId(Long id) {
-        jdbcTemplate.update("DELETE FROM CHAT_URL WHERE id=?", id);
-    }
 }

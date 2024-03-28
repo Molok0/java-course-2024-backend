@@ -12,5 +12,4 @@ public interface TgChatUrlRepository {
 
     List<Long> findByTgChatId(Long id);
 
-    void removeByTgChatId(Long id);
 }

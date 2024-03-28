@@ -10,6 +10,7 @@ import edu.java.generation.ListLinksResponse;
 import edu.java.generation.RemoveLinkRequest;
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,12 @@ public class JdbcUrlServiceImpl implements UrlService {
 
     public Mono<ResponseEntity<LinkResponse>> addLinks(Long tgChatId, AddLinkRequest addLinkRequest) {
 
-        urlRepository.add(addLinkRequest.getLink().toString());
+        String url = addLinkRequest.getLink().toString();
+        if (Objects.isNull(urlRepository.getId(url))) {
+            urlRepository.add(addLinkRequest.getLink().toString());
+        }
 
-        Long urlId = urlRepository.getId(addLinkRequest.getLink().toString());
+        Long urlId = urlRepository.getId(url);
 
         TgChatUrl tgChatUrl = new TgChatUrl();
         tgChatUrl.setTgChatId(tgChatId);
