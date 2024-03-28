@@ -4,9 +4,7 @@ import edu.java.api.model.repository.jdbc.TgChatRepositoryImpl;
 import edu.java.api.model.repository.jdbc.TgChatUrlRepositoryImpl;
 import edu.java.api.services.interfaces.TgChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 @Service
 public class JdbcTgChatServiceImpl implements TgChatService {
@@ -22,15 +20,11 @@ public class JdbcTgChatServiceImpl implements TgChatService {
         this.tgChatUrlRepository = tgChatUrlRepository;
     }
 
-    public Mono<ResponseEntity<Void>> regNewTgChat(Long id) {
-        return Mono.fromRunnable(() -> tgChatRepository.add(id))
-            .then(Mono.just(ResponseEntity.ok().<Void>build()));
+    public void regNewTgChat(Long id) {
+        tgChatRepository.add(id);
     }
 
-    public Mono<ResponseEntity<Void>> deleteTgChat(Long id) {
-        return Mono.fromRunnable(() -> {
-                tgChatRepository.remove(id);
-            })
-            .then(Mono.just(ResponseEntity.ok().<Void>build()));
+    public void deleteTgChat(Long id) {
+        tgChatRepository.remove(id);
     }
 }

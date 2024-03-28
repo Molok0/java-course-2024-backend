@@ -27,12 +27,12 @@ public class UrlController implements LinksApi {
         Long tgChatId,
         RemoveLinkRequest removeLinkRequest
     ) {
-        return urlService.deleteLink(tgChatId, removeLinkRequest);
+        return Mono.just(ResponseEntity.ok(urlService.deleteLink(tgChatId, removeLinkRequest)));
     }
 
     @Override
     public Mono<ResponseEntity<ListLinksResponse>> linksGet(Long tgChatId) {
-        return urlService.getAllLinks(tgChatId);
+        return Mono.just(ResponseEntity.ok(urlService.getAllLinks(tgChatId)));
     }
 
     @Override
@@ -40,6 +40,6 @@ public class UrlController implements LinksApi {
         Long tgChatId,
         AddLinkRequest addLinkRequest
     ) {
-        return urlService.addLinks(tgChatId, addLinkRequest);
+        return Mono.just(ResponseEntity.ok(urlService.addLinks(tgChatId, addLinkRequest)));
     }
 }
