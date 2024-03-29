@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StackOverflowProcessor extends UrlProcessor {
     private UrlProcessor next;
-    private String nameSite = "stackoverflow.com";
+    private final String nameSite = "stackoverflow.com";
 
     public StackOverflowProcessor() {
     }
@@ -32,6 +32,7 @@ public class StackOverflowProcessor extends UrlProcessor {
         return text;
     }
 
+    @Override
     public String getNameSite() {
         return nameSite;
     }

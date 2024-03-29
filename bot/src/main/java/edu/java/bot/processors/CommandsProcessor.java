@@ -4,11 +4,13 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import edu.java.bot.model.commands.Command;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class CommandsProcessor implements UserMessageProcessor {
-    private List<? extends Command> commands;
+    private final List<? extends Command> commands;
     private static final String COMMAND_NOT_FOUND = "Команда не найдена";
     private static final String AN_EMPTY_LINE = "Вы отправили пустую строку";
 
@@ -27,6 +29,7 @@ public class CommandsProcessor implements UserMessageProcessor {
             }
             for (Command command : commands) {
                 if (command.command().equals(list[0])) {
+                    log.debug(update.message().text());
                     return command.handle(update);
                 }
             }
