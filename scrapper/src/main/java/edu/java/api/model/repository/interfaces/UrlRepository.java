@@ -1,6 +1,7 @@
 package edu.java.api.model.repository.interfaces;
 
 import edu.java.api.model.Url;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface UrlRepository {
@@ -13,4 +14,6 @@ public interface UrlRepository {
     Long getId(String url);
 
     String findById(Long id);
+
+    List<Url> findByLastCheckTime(LocalTime localTimeMinusHours);
 }

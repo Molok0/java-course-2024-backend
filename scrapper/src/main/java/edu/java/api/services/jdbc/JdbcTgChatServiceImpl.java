@@ -1,20 +1,20 @@
 package edu.java.api.services.jdbc;
 
-import edu.java.api.model.repository.jdbc.TgChatRepositoryImpl;
-import edu.java.api.model.repository.jdbc.TgChatUrlRepositoryImpl;
+import edu.java.api.model.repository.jdbc.JdbcTgChatRepositoryImpl;
+import edu.java.api.model.repository.jdbc.JdbcTgChatUrlRepositoryImpl;
 import edu.java.api.services.interfaces.TgChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class JdbcTgChatServiceImpl implements TgChatService {
-    private final TgChatRepositoryImpl tgChatRepository;
-    private final TgChatUrlRepositoryImpl tgChatUrlRepository;
+    private final JdbcTgChatRepositoryImpl tgChatRepository;
+    private final JdbcTgChatUrlRepositoryImpl tgChatUrlRepository;
 
     @Autowired
     public JdbcTgChatServiceImpl(
-        TgChatRepositoryImpl tgChatRepository,
-        TgChatUrlRepositoryImpl tgChatUrlRepository
+        JdbcTgChatRepositoryImpl tgChatRepository,
+        JdbcTgChatUrlRepositoryImpl tgChatUrlRepository
     ) {
         this.tgChatRepository = tgChatRepository;
         this.tgChatUrlRepository = tgChatUrlRepository;

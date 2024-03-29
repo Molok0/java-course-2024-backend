@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class TgChatUrlRepositoryImpl implements TgChatUrlRepository {
+public class JdbcTgChatUrlRepositoryImpl implements TgChatUrlRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public TgChatUrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public JdbcTgChatUrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -44,6 +44,15 @@ public class TgChatUrlRepositoryImpl implements TgChatUrlRepository {
         return jdbcTemplate.query(
             "SELECT url_id FROM CHAT_URL WHERE chat_id=?",
             (rs, rowNum) -> rs.getLong("url_id"),
+            id
+        );
+    }
+
+    @Override
+    public List<Long> findByUrlId(Long id) {
+        return jdbcTemplate.query(
+            "SELECT chat_id FROM CHAT_URL WHERE url_id=?",
+            (rs, rowNum) -> rs.getLong("chat_id"),
             id
         );
     }

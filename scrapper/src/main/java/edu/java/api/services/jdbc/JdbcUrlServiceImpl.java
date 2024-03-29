@@ -1,8 +1,8 @@
 package edu.java.api.services.jdbc;
 
 import edu.java.api.model.TgChatUrl;
-import edu.java.api.model.repository.jdbc.TgChatUrlRepositoryImpl;
-import edu.java.api.model.repository.jdbc.UrlRepositoryImpl;
+import edu.java.api.model.repository.jdbc.JdbcTgChatUrlRepositoryImpl;
+import edu.java.api.model.repository.jdbc.JdbcUrlRepositoryImpl;
 import edu.java.api.services.interfaces.UrlService;
 import edu.java.generation.AddLinkRequest;
 import edu.java.generation.LinkResponse;
@@ -18,13 +18,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class JdbcUrlServiceImpl implements UrlService {
 
-    private final TgChatUrlRepositoryImpl tgChatUrlRepository;
-    private final UrlRepositoryImpl urlRepository;
+    private final JdbcTgChatUrlRepositoryImpl tgChatUrlRepository;
+    private final JdbcUrlRepositoryImpl urlRepository;
 
     @Autowired
     public JdbcUrlServiceImpl(
-        TgChatUrlRepositoryImpl tgChatUrlRepository,
-        UrlRepositoryImpl urlRepository
+        JdbcTgChatUrlRepositoryImpl tgChatUrlRepository,
+        JdbcUrlRepositoryImpl urlRepository
     ) {
         this.tgChatUrlRepository = tgChatUrlRepository;
         this.urlRepository = urlRepository;

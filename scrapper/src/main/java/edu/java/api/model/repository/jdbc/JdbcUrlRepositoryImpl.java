@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class UrlRepositoryImpl implements UrlRepository {
+public class JdbcUrlRepositoryImpl implements UrlRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public JdbcUrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -44,5 +44,10 @@ public class UrlRepositoryImpl implements UrlRepository {
     @Override
     public String findById(Long id) {
         return jdbcTemplate.queryForObject("SELECT url FROM URL WHERE id=?", String.class, id);
+    }
+
+    @Override
+    public List<Url> findByLastCheckTime(LocalTime localTimeMinusHours) {
+        return jdbcTemplate.query("SELECT * FROM URL WHERE last_check < ?", new UrlMapper(), localTimeMinusHours);
     }
 }

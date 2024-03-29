@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class TgChatRepositoryImpl implements TgChatRepository {
+public class JdbcTgChatRepositoryImpl implements TgChatRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public TgChatRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public JdbcTgChatRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
