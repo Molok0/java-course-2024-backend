@@ -1,12 +1,11 @@
 package edu.java.bot.processors.url;
 
 import edu.java.bot.processors.url.parser.UrlParser;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
-@Component
+@Slf4j
 public class StackOverflowProcessor extends UrlProcessor {
-    private UrlProcessor next;
-    private final String nameSite = "stackoverflow.com";
+    final String nameSite = "stackoverflow.com";
 
     public StackOverflowProcessor() {
     }
@@ -14,26 +13,25 @@ public class StackOverflowProcessor extends UrlProcessor {
     @Override
     public String handle(String url) {
         String text;
+        log.debug("In StackOverflowProcessor");
         if (UrlParser.getWebSiteName(url).equals(nameSite)) {
             /*
              * Какая то логика
              * Добовляем ссылку в отслеживаемые
              * */
+            log.debug(nameSite);
             text = "StackOverflowProcessor" + url;
         } else if (next != null) {
             /*
              * Какая то логика
              * Передаём следующему обработчику
              * */
+
             text = next.handle(url);
         } else {
-            text = "Такой сайт не может отслеживаться StackOverflowProcessor";
+            text = "Такой сайт не может отслеживаться";
         }
         return text;
     }
 
-    @Override
-    public String getNameSite() {
-        return nameSite;
-    }
 }

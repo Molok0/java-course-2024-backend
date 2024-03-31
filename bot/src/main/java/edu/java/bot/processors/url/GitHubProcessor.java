@@ -2,13 +2,9 @@ package edu.java.bot.processors.url;
 
 import edu.java.bot.processors.url.parser.UrlParser;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
 public class GitHubProcessor extends UrlProcessor {
-    private UrlProcessor next;
-
     private final String nameSite = "github.com";
 
     public GitHubProcessor() {
@@ -31,15 +27,10 @@ public class GitHubProcessor extends UrlProcessor {
              * Передаём следующему обработчику
              * */
             text = next.handle(url);
-            log.debug(next.getNameSite());
         } else {
             text = "Такой сайт не может отслеживаться";
         }
         return text;
     }
 
-    @Override
-    public String getNameSite() {
-        return nameSite;
-    }
 }

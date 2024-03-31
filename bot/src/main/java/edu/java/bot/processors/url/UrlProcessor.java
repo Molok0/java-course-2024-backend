@@ -4,7 +4,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public abstract class UrlProcessor {
-    private UrlProcessor next;
+    protected UrlProcessor next;
+    protected String nameSite;
 
     public void setNext(UrlProcessor urlProcessor) {
         this.next = urlProcessor;
@@ -16,5 +17,7 @@ public abstract class UrlProcessor {
 
     public abstract String handle(String url);
 
-    public abstract String getNameSite();
+    public String getNameSite() {
+        return this.nameSite;
+    }
 }
