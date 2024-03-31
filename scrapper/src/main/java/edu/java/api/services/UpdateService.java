@@ -15,6 +15,7 @@ public class UpdateService {
 
     private final JdbcTgChatUrlRepositoryImpl jdbcTgChatUrlRepository;
     private final JdbcUrlRepositoryImpl jdbcUrlRepository;
+    private static final int MINUS_HOURS = 1;
 
     @Autowired
     public UpdateService(
@@ -26,19 +27,15 @@ public class UpdateService {
     }
 
     public List<LinkUpdate> updatesUrl() {
-        LocalTime localTimeMinusHours = LocalTime.now();
+        LocalTime localTimeMinusHours = LocalTime.now().minusHours(MINUS_HOURS);
+        return jdbcUrlRepository.findByLastCheckTime(localTimeMinusHours).stream().map(url -> {
+            LinkUpdate linkUpdate = new LinkUpdate();
 
-        List<LinkUpdate> linkUpdates =
-            jdbcUrlRepository.findByLastCheckTime(localTimeMinusHours).stream().map(url -> {
-                LinkUpdate linkUpdate = new LinkUpdate();
+            linkUpdate.setUrl(URI.create(url.getUrl()));
+            linkUpdate.setId(url.getId());
 
-                linkUpdate.setUrl(URI.create(url.getUrl()));
-                linkUpdate.setId(url.getId());
-
-                linkUpdate.setTgChatIds(jdbcTgChatUrlRepository.findByUrlId(url.getId()));
-                return linkUpdate;
-            }).collect(Collectors.toList());
-
-        return linkUpdates;
+            linkUpdate.setTgChatIds(jdbcTgChatUrlRepository.findByUrlId(url.getId()));
+            return linkUpdate;
+        }).collect(Collectors.toList());
     }
 }
