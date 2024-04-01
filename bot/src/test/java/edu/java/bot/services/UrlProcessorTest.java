@@ -22,6 +22,6 @@ class UrlProcessorTest {
 
     @Test
     void getNextUrlProcessorTest() {
-        Assertions.assertEquals(urlProcessor.getNext().getNameSite(), "stackoverflow.com");
+        Assertions.assertEquals(urlProcessor.getNext().getNameSite(),"stackoverflow.com");
     }
 }
