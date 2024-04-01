@@ -18,9 +18,7 @@ public class BotConfig {
 
     @Bean
     public UrlProcessor urlProcessor() {
-        UrlProcessor urlProcessor = new GitHubProcessor();
-        urlProcessor.setNext(new StackOverflowProcessor());
-        urlProcessor.getNext().setNext(null);
+        UrlProcessor urlProcessor = new GitHubProcessor(new StackOverflowProcessor(null));
         return urlProcessor;
     }
 }
