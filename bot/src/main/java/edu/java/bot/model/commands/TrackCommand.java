@@ -2,20 +2,22 @@ package edu.java.bot.model.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.services.WebSiteProcessorService;
+import edu.java.bot.processors.url.UrlProcessor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class TrackCommand implements Command {
     private static final String COMMAND_NAME = "/track";
     private static final String DESCRIPTION = "Начинает отслеживать ссылку";
     private static final String MISUSE = "После команды /track должна быть ссылка на сайт";
-    public WebSiteProcessorService webSiteProcessorService;
+    public UrlProcessor urlProcessor;
 
     @Autowired
-    public TrackCommand(WebSiteProcessorService webSiteProcessorService) {
-        this.webSiteProcessorService = webSiteProcessorService;
+    public TrackCommand(UrlProcessor urlProcessor) {
+        this.urlProcessor = urlProcessor;
     }
 
     @Override
@@ -30,7 +32,6 @@ public class TrackCommand implements Command {
 
     @Override
     public SendMessage handle(Update update) {
-
         Long id = update.message().chat().id();
         String request = update.message().text();
         if (!check(request)) {
@@ -38,7 +39,7 @@ public class TrackCommand implements Command {
         }
         String[] list = request.split(" ");
         try {
-            String text = webSiteProcessorService.getUrlProcessor().handle(list[1]);
+            String text = urlProcessor.handle(list[1]);
             return new SendMessage(id, text);
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -47,7 +47,7 @@ public class CommandsProcessorTest {
 
         Assertions.assertEquals(
             nameRuList.getFirst(),
-            "GitHubProcessor\\thttps://github.com/sanyarnd/tinkoff-java-course-2023/"
+            "https://github.com/sanyarnd/tinkoff-java-course-2023/"
         );
     }
 
