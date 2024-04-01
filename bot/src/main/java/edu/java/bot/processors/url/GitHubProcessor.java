@@ -1,41 +1,16 @@
 package edu.java.bot.processors.url;
 
-import edu.java.bot.processors.url.parser.UrlParser;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
-@Component
+@Slf4j
 public class GitHubProcessor extends UrlProcessor {
-    private UrlProcessor next;
-
-    private final String nameSite = "github.com";
-
-    public GitHubProcessor() {
-
-    }
-
-    @Override
-    public String handle(String url) {
-        String text;
-        if (UrlParser.getWebSiteName(url).equals(nameSite)) {
-            /*
-             * Какая то логика
-             * Добовляем ссылку в отслеживаемые
-             * */
-            text = "GitHubProcessor\t" + url;
-        } else if (next != null) {
-            /*
-             * Какая то логика
-             * Передаём следующему обработчику
-             * */
-            text = next.handle(url);
-        } else {
-            text = "Такой сайт не может отслеживаться";
-        }
-        return text;
+    public GitHubProcessor(UrlProcessor next) {
+        super(next);
     }
 
     @Override
     public String getNameSite() {
-        return nameSite;
+        return "github.com";
     }
+
 }
