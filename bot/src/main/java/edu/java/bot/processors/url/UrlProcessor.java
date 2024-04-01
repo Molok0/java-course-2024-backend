@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class UrlProcessor {
     protected UrlProcessor next;
+
     public UrlProcessor(UrlProcessor next) {
         this.next = next;
     }
