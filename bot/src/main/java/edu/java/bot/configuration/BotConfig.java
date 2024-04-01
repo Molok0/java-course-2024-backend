@@ -30,6 +30,7 @@ public class BotConfig {
     public ScrapperClient scrapperClient(ApplicationConfig applicationConfig) {
         return new ScrapperClient(webClientBuilder, applicationConfig.urlClient().scrapperDefaultUrl());
     }
+
     @Bean
     public UrlProcessor urlProcessor() {
         return new GitHubProcessor(new StackOverflowProcessor(null));
