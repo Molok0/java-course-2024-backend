@@ -14,7 +14,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Slf4j
 @Configuration
 public class BotConfig {
-    private WebClient.Builder webClientBuilder;
+    private final WebClient.Builder webClientBuilder;
 
     @Autowired
     public BotConfig(WebClient.Builder webClientBuilder) {

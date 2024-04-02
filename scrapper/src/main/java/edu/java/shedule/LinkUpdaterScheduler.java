@@ -31,7 +31,7 @@ public class LinkUpdaterScheduler {
 //        log.debug(linkUpdateList.toString());
         linkUpdateList.stream().map(linkUpdate -> {
             String url = linkUpdate.getUrl().toString();
-
+//            urlProcessor.handle(url);
             return null;
         });
     }

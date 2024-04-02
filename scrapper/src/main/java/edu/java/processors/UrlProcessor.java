@@ -1,21 +1,40 @@
 package edu.java.processors;
 
+
+import edu.java.processors.parser.UrlParser;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public abstract class UrlProcessor {
-
     protected UrlProcessor next;
-    protected String nameSite;
 
-    public abstract String handle(String url);
-
-    public String getNameSite() {
-        return nameSite;
+    public UrlProcessor(UrlProcessor next) {
+        this.next = next;
     }
 
     public UrlProcessor getNext() {
-        return next;
+        return this.next;
     }
 
-    public void setNext(UrlProcessor next) {
-        this.next = next;
+    public final String handle(String url) {
+        String text;
+        if (UrlParser.getWebSiteName(url).equals(this.getNameSite())) {
+            /*
+             * Какая то логика
+             * */
+            text = url;
+            log.debug(this.getNameSite());
+        } else if (next != null) {
+            /*
+             * Какая то логика
+             * Передаём следующему обработчику
+             * */
+            text = next.handle(url);
+        } else {
+            text = "Такой сайт не может отслеживаться";
+        }
+        return text;
     }
+
+    public abstract String getNameSite();
 }

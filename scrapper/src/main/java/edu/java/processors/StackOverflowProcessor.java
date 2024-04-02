@@ -1,37 +1,20 @@
 package edu.java.processors;
 
-import edu.java.configuration.ClientConfig;
-import edu.java.processors.parser.UrlParser;
-import org.springframework.stereotype.Component;
+import edu.java.clients.StackOverflowClient;
+import lombok.extern.slf4j.Slf4j;
 
-@Component
+@Slf4j
 public class StackOverflowProcessor extends UrlProcessor {
-    private final String nameSite = "stackoverflow.com";
-    private ClientConfig clientConfig;
+    private StackOverflowClient stackOverflowClient;
 
-    public StackOverflowProcessor(ClientConfig clientConfig) {
-        this.clientConfig = clientConfig;
+    public StackOverflowProcessor(UrlProcessor next, StackOverflowClient stackOverflowClient) {
+        super(next);
+        this.stackOverflowClient = stackOverflowClient;
     }
 
     @Override
-    public String handle(String url) {
-        String text;
-        if (UrlParser.getWebSiteName(url).equals(nameSite)) {
-            /*
-             * Какая то логика
-             * Добовляем ссылку в отслеживаемые
-             * */
-            text = url;
-        } else if (next != null) {
-            /*
-             * Какая то логика
-             * Передаём следующему обработчику
-             * */
-            text = next.handle(url);
-        } else {
-            text = "Такой сайт не может отслеживаться StackOverflowProcessor";
-        }
-        return text;
+    public String getNameSite() {
+        return "stackoverflow.com";
     }
 
 }

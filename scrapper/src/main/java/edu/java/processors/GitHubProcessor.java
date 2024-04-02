@@ -1,28 +1,20 @@
 package edu.java.processors;
 
-import edu.java.configuration.ClientConfig;
-import edu.java.processors.parser.UrlParser;
-import org.springframework.stereotype.Component;
+import edu.java.clients.GitHubClient;
+import lombok.extern.slf4j.Slf4j;
 
-@Component
+@Slf4j
 public class GitHubProcessor extends UrlProcessor {
-    private final String nameSite = "github.com";
-    private ClientConfig clientConfig;
+    private GitHubClient gitHubClient;
 
-    public GitHubProcessor(ClientConfig clientConfig) {
-        this.clientConfig = clientConfig;
+    public GitHubProcessor(UrlProcessor next, GitHubClient gitHubClient) {
+        super(next);
+        this.gitHubClient = gitHubClient;
     }
 
     @Override
-    public String handle(String url) {
-        String text;
-        if (UrlParser.getWebSiteName(url).equals(nameSite)) {
-            text = url;
-        } else if (next != null) {
-            text = next.handle(url);
-        } else {
-            text = "Такой сайт не может отслеживаться";
-        }
-        return text;
+    public String getNameSite() {
+        return "github.com";
     }
+
 }

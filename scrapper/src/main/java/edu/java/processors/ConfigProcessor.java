@@ -1,16 +1,14 @@
 package edu.java.processors;
 
-import edu.java.configuration.ClientConfig;
+import edu.java.clients.GitHubClient;
+import edu.java.clients.StackOverflowClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ConfigProcessor {
     @Bean
-    public UrlProcessor urlProcessor(ClientConfig clientConfig) {
-        UrlProcessor urlProcessor = new GitHubProcessor(clientConfig);
-        urlProcessor.setNext(new StackOverflowProcessor(clientConfig));
-        urlProcessor.getNext().setNext(null);
-        return urlProcessor;
+    public UrlProcessor urlProcessor(StackOverflowClient stackOverflowClient, GitHubClient gitHubClient) {
+        return new GitHubProcessor(new StackOverflowProcessor(null, stackOverflowClient), gitHubClient);
     }
 }
