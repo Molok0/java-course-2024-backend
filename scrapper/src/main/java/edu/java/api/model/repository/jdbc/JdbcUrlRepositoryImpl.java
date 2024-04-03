@@ -39,6 +39,7 @@ public class JdbcUrlRepositoryImpl implements UrlRepository {
 
     @Override
     public Long getId(String url) {
+        // Переписать на Option
         try {
             Long id = jdbcTemplate.queryForObject("SELECT id FROM URL WHERE url=?", Long.class, url);
             return id;
