@@ -6,6 +6,7 @@ import edu.java.api.model.repository.interfaces.UrlRepository;
 import java.time.LocalTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,7 +39,13 @@ public class JdbcUrlRepositoryImpl implements UrlRepository {
 
     @Override
     public Long getId(String url) {
-        return jdbcTemplate.queryForObject("SELECT id FROM URL WHERE url=?", Long.class, url);
+        try {
+            Long id = jdbcTemplate.queryForObject("SELECT id FROM URL WHERE url=?", Long.class, url);
+            return id;
+        } catch (IncorrectResultSizeDataAccessException exception) {
+            return null;
+        }
+
     }
 
     @Override

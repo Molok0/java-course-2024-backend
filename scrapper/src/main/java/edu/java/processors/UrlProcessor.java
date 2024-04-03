@@ -22,7 +22,7 @@ public abstract class UrlProcessor {
             /*
              * Какая то логика
              * */
-            text = url;
+            text = getLastChanges(url);
             log.debug(this.getNameSite());
         } else if (next != null) {
             /*
@@ -35,6 +35,8 @@ public abstract class UrlProcessor {
         }
         return text;
     }
+
+    public abstract String getLastChanges(String urlString);
 
     public abstract String getNameSite();
 }

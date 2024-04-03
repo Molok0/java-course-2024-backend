@@ -12,9 +12,11 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class JdbcUrlServiceImpl implements UrlService {
 
@@ -33,8 +35,10 @@ public class JdbcUrlServiceImpl implements UrlService {
     public LinkResponse addLinks(Long tgChatId, AddLinkRequest addLinkRequest) {
 
         String url = addLinkRequest.getLink().toString();
+
         if (Objects.isNull(urlRepository.getId(url))) {
             urlRepository.add(addLinkRequest.getLink().toString());
+            log.debug("add " + url);
         }
 
         Long urlId = urlRepository.getId(url);

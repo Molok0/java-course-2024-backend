@@ -28,11 +28,12 @@ public class LinkUpdaterScheduler {
     public void update() {
         log.debug("calling update from LinkUpdaterScheduler");
         List<LinkUpdate> linkUpdateList = updateService.updatesUrl();
-//        log.debug(linkUpdateList.toString());
-        linkUpdateList.stream().map(linkUpdate -> {
+        log.debug(linkUpdateList.toString() + " адреса на проверку ");
+        var res = linkUpdateList.stream().map(linkUpdate -> {
             String url = linkUpdate.getUrl().toString();
-//            urlProcessor.handle(url);
-            return null;
-        });
+            String a = urlProcessor.handle(url);
+            return a;
+        }).toList();
+        log.debug(String.valueOf(res));
     }
 }

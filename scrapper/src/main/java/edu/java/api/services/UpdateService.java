@@ -7,9 +7,11 @@ import java.net.URI;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class UpdateService {
 
@@ -27,10 +29,10 @@ public class UpdateService {
     }
 
     public List<LinkUpdate> updatesUrl() {
-        LocalTime localTimeMinusHours = LocalTime.now().minusHours(MINUS_HOURS);
+        LocalTime localTimeMinusHours = LocalTime.now().plusHours(MINUS_HOURS);
         return jdbcUrlRepository.findByLastCheckTime(localTimeMinusHours).stream().map(url -> {
             LinkUpdate linkUpdate = new LinkUpdate();
-
+            log.debug(url.getUrl());
             linkUpdate.setUrl(URI.create(url.getUrl()));
             linkUpdate.setId(url.getId());
 
