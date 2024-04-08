@@ -6,9 +6,11 @@ CREATE TABLE IF NOT EXISTS CHAT
 
 CREATE TABLE IF NOT EXISTS URL
 (
-    id             bigint GENERATED ALWAYS AS IDENTITY,
-    url            TEXT  NOT NULL,
-    last_check     TIME NOT NULL,
+    id              bigint GENERATED ALWAYS AS IDENTITY,
+    url             TEXT   NOT NULL,
+    last_check      TIME   NOT NULL,
+    last_change     timestamp    NOT NULL,
+
 
     PRIMARY KEY (id),
     CONSTRAINT unique_url UNIQUE (url)

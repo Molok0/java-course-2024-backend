@@ -22,6 +22,7 @@ public abstract class UrlProcessor {
              * Какая то логика
              * Добовляем ссылку в отслеживаемые
              * */
+
             text = url;
             log.debug(this.getNameSite());
         } else if (next != null) {

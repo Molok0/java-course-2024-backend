@@ -1,6 +1,7 @@
 package edu.java.processors;
 
 import edu.java.clients.GitHubClient;
+import edu.java.dto.GitHubDto.UserRepositoryResponse;
 import java.net.URI;
 import java.net.URISyntaxException;
 import lombok.extern.slf4j.Slf4j;
@@ -8,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class GitHubProcessor extends UrlProcessor {
     private GitHubClient gitHubClient;
-    private static final int PATH_COMPONENT3 = 3;
-    private static final int PATH_COMPONENT2 = 2;
+    private static final int PATH_COMPONENT3 = 2;
+    private static final int PATH_COMPONENT2 = 1;
 
     public GitHubProcessor(UrlProcessor next, GitHubClient gitHubClient) {
         super(next);
@@ -23,7 +24,9 @@ public class GitHubProcessor extends UrlProcessor {
             String[] pathComponents = uri.getPath().split("/");
             String username = pathComponents[PATH_COMPONENT2];
             String repoName = pathComponents[PATH_COMPONENT3];
-            return username + repoName;
+            log.debug(repoName);
+            UserRepositoryResponse userRepositoryResponse = gitHubClient.getInfo(username, repoName).block();
+            return userRepositoryResponse.lastUpdate().toString();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

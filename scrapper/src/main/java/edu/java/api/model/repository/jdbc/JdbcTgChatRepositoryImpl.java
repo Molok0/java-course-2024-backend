@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class JdbcTgChatRepositoryImpl implements TgChatRepository {
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
     public JdbcTgChatRepositoryImpl(JdbcTemplate jdbcTemplate) {

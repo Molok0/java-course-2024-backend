@@ -16,4 +16,8 @@ public interface UrlRepository {
     String findById(Long id);
 
     List<Url> findByLastCheckTime(LocalTime localTimeMinusHours);
+
+    void updateByLastCheckTime(LocalTime localTimeMinusHours);
+
+    int updateByTimeUrl(Long id, String time);
 }

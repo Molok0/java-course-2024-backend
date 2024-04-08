@@ -2,7 +2,11 @@ package edu.java.bot.model.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import edu.java.bot.api.client.ScrapperClient;
+import edu.java.bot.api.dto.ListLinksResponse;
+import edu.java.bot.api.dto.RemoveLinkRequest;
 import edu.java.bot.repositories.UserRepository;
+import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +19,8 @@ public class UnTrackCommand implements Command {
     private static final String MISSING_SITE = "Сайт не отслеживался";
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    ScrapperClient scrapperClient;
 
     @Override
     public String command() {
@@ -36,10 +42,19 @@ public class UnTrackCommand implements Command {
             return new SendMessage(id, MISUSE);
         }
         String[] list = request.split(" ");
-        if (userRepository.siteInRepository(list[1])) {
+        String uri = list[1];
+
+        ListLinksResponse listLinksResponse = scrapperClient.getLinks(id).block();
+
+        if (userRepository.siteInRepository(uri)) {
             /*
              * Удаляем из репозитория этот сайт
              * */
+            RemoveLinkRequest removeLinkRequest = new RemoveLinkRequest();
+            removeLinkRequest.setLink(URI.create(uri));
+
+            scrapperClient.deleteLinks(removeLinkRequest, id);
+
             text = DELETE_SITE;
         } else {
             text = MISSING_SITE;

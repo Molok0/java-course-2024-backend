@@ -22,7 +22,7 @@ public class ExceptionApiHandler {
                 .exceptionName(exception.getClass().getName())
                 .code(String.valueOf(HttpStatus.NOT_FOUND))
                 .description("Не хватает параметров в теле запроса")
-                .stacktrace(Arrays.stream(exception.getStackTrace()).map(e -> e.toString()).toList()));
+                .stacktrace(Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toList()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -34,6 +34,6 @@ public class ExceptionApiHandler {
                 .exceptionName(exception.getClass().getName())
                 .code(String.valueOf(HttpStatus.BAD_REQUEST))
                 .description("Неправильное тело запроса")
-                .stacktrace(Arrays.stream(exception.getStackTrace()).map(e -> e.toString()).toList()));
+                .stacktrace(Arrays.stream(exception.getStackTrace()).map(StackTraceElement::toString).toList()));
     }
 }

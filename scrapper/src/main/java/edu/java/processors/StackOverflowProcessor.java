@@ -1,6 +1,7 @@
 package edu.java.processors;
 
 import edu.java.clients.StackOverflowClient;
+import edu.java.dto.StackOverflowDto.ItemsDto;
 import java.net.URI;
 import java.net.URISyntaxException;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +21,9 @@ public class StackOverflowProcessor extends UrlProcessor {
             URI uri = new URI(urlString);
             String path = uri.getPath();
             String[] pathSegments = path.split("/");
-            String id = pathSegments[pathSegments.length - 1];
-            return id;
+            String id = pathSegments[pathSegments.length - 2];
+            ItemsDto itemsDto = stackOverflowClient.getQuestions(id).block();
+            return itemsDto.getItems().getFirst().getLastEditDate().toString();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

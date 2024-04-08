@@ -7,11 +7,13 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import lombok.Setter;
 
 /**
  * LinkUpdate
  */
 
+@Setter
 public class LinkUpdate {
 
     private Long id;
@@ -40,10 +42,6 @@ public class LinkUpdate {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public LinkUpdate url(URI url) {
         this.url = url;
         return this;
@@ -61,10 +59,6 @@ public class LinkUpdate {
         return url;
     }
 
-    public void setUrl(URI url) {
-        this.url = url;
-    }
-
     public LinkUpdate description(String description) {
         this.description = description;
         return this;
@@ -80,10 +74,6 @@ public class LinkUpdate {
     @JsonProperty("description")
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public LinkUpdate tgChatIds(List<Long> tgChatIds) {
@@ -109,10 +99,6 @@ public class LinkUpdate {
     @JsonProperty("tgChatIds")
     public List<Long> getTgChatIds() {
         return tgChatIds;
-    }
-
-    public void setTgChatIds(List<Long> tgChatIds) {
-        this.tgChatIds = tgChatIds;
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BotService {
-    private TelegramBot telegramBot;
+    private final TelegramBot telegramBot;
 
     public BotService(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
