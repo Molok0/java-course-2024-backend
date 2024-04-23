@@ -33,7 +33,7 @@ public class JdbcChatTest extends IntegrationTest {
     @Rollback
     void removeTest() {
         assertThatThrownBy(() -> {
-            jdbcTgChatRepository.remove(2L);
+            jdbcTgChatRepository.remove(45L);
         }).isInstanceOf(JdbcDatabaseException.class);
     }
 
