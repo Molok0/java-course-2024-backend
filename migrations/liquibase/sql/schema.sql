@@ -23,6 +23,6 @@ CREATE TABLE IF NOT EXISTS CHAT_URL
 
     PRIMARY KEY (url_id, chat_id),
     CONSTRAINT fk_url_id FOREIGN KEY (url_id) REFERENCES URL(id) ON delete cascade ,
-    CONSTRAINT fk_chat_id FOREIGN KEY (chat_id) REFERENCES URL(id) ON delete cascade
+    CONSTRAINT fk_chat_id FOREIGN KEY (chat_id) REFERENCES CHAT(id) ON delete cascade
 );
 

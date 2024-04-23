@@ -7,6 +7,7 @@ import edu.java.generation.LinksApi;
 import edu.java.generation.ListLinksResponse;
 import edu.java.generation.RemoveLinkRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class UrlController implements LinksApi {
     private JdbcUrlServiceImpl urlService;
 
@@ -40,6 +42,7 @@ public class UrlController implements LinksApi {
         Long tgChatId,
         AddLinkRequest addLinkRequest
     ) {
+        log.info(String.valueOf(tgChatId));
         return Mono.just(ResponseEntity.ok(urlService.addLinks(tgChatId, addLinkRequest)));
     }
 }

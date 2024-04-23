@@ -67,10 +67,10 @@ public class JdbcUrlServiceImpl implements UrlService {
     }
 
     public LinkResponse deleteLink(Long tgChatId, RemoveLinkRequest removeLinkRequest) {
-
         TgChatUrl tgChatUrl = new TgChatUrl();
 
         Long urlId = urlRepository.getId(removeLinkRequest.getLink().toString());
+        log.info("ID ссылки на удаление" + urlId);
         tgChatUrl.setUrlId(urlId);
         tgChatUrl.setTgChatId(tgChatId);
 

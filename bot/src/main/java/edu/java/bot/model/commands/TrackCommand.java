@@ -2,7 +2,10 @@ package edu.java.bot.model.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
+import edu.java.bot.api.client.ScrapperClient;
+import edu.java.bot.api.dto.AddLinkRequest;
 import edu.java.bot.processors.url.UrlProcessor;
+import java.net.URI;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +16,11 @@ public class TrackCommand implements Command {
     private static final String COMMAND_NAME = "/track";
     private static final String DESCRIPTION = "Начинает отслеживать ссылку";
     private static final String MISUSE = "После команды /track должна быть ссылка на сайт";
+    private static final String NOT_COMMAND = "Такой сайт не может отслеживаться";
     public UrlProcessor urlProcessor;
+
+    @Autowired
+    ScrapperClient scrapperClient;
 
     @Autowired
     public TrackCommand(UrlProcessor urlProcessor) {
@@ -38,8 +45,19 @@ public class TrackCommand implements Command {
             return new SendMessage(id, MISUSE);
         }
         String[] list = request.split(" ");
+        var url = list[1];
         try {
-            String text = urlProcessor.handle(list[1]);
+
+            String text = urlProcessor.handle(url);
+
+            if (!text.equals(NOT_COMMAND)) {
+
+                AddLinkRequest addLinkRequest = new AddLinkRequest();
+                addLinkRequest.setLink(URI.create(url));
+                log.info(url);
+                scrapperClient.postLinks(addLinkRequest, id).block();
+            }
+
             return new SendMessage(id, text);
         } catch (Exception e) {
             throw new RuntimeException(e);

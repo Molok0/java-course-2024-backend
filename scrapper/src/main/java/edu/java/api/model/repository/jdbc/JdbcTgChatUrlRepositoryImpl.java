@@ -4,12 +4,14 @@ import edu.java.api.model.TgChatUrl;
 import edu.java.api.model.mapper.TgChatUrlMapper;
 import edu.java.api.model.repository.interfaces.TgChatUrlRepository;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
+@Slf4j
 public class JdbcTgChatUrlRepositoryImpl implements TgChatUrlRepository {
     private JdbcTemplate jdbcTemplate;
 
@@ -21,17 +23,24 @@ public class JdbcTgChatUrlRepositoryImpl implements TgChatUrlRepository {
     @Override
     @Transactional
     public void add(TgChatUrl tgChatUrl) {
-        jdbcTemplate.update("INSERT INTO CHAT_URL VALUES (?, ?)", tgChatUrl.getUrlId(), tgChatUrl.getTgChatId());
+        log.info(String.valueOf(tgChatUrl.getTgChatId()));
+        jdbcTemplate.update(
+            "INSERT INTO CHAT_URL (url_id, chat_id) VALUES (?, ?)",
+            tgChatUrl.getUrlId(),
+            tgChatUrl.getTgChatId()
+        );
     }
 
     @Override
     @Transactional
     public void remove(TgChatUrl tgChatUrl) {
-        jdbcTemplate.update(
+
+        var res = jdbcTemplate.update(
             "DELETE FROM CHAT_URL WHERE url_id=? AND chat_id=?",
             tgChatUrl.getUrlId(),
             tgChatUrl.getTgChatId()
         );
+        log.info("Кол-во удалений: " + res);
     }
 
     @Override

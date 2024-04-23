@@ -3,6 +3,7 @@ package edu.java.api.model.repository.jdbc;
 import edu.java.api.model.Url;
 import edu.java.api.model.mapper.UrlMapper;
 import edu.java.api.model.repository.interfaces.UrlRepository;
+import edu.java.exception.JdbcDatabaseException;
 import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class JdbcUrlRepositoryImpl implements UrlRepository {
     private final JdbcTemplate jdbcTemplate;
+    private static final String ERROR_MESSAGE = "Ошибка добавления!";
 
     @Autowired
     public JdbcUrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -26,12 +28,17 @@ public class JdbcUrlRepositoryImpl implements UrlRepository {
     @Override
     @Transactional
     public void add(String url) {
-        jdbcTemplate.update(
-            "INSERT INTO url (url, last_check, last_change) VALUES (?, ?, ?)",
-            url,
-            LocalTime.now(),
-            OffsetDateTime.MIN
-        );
+        try {
+            jdbcTemplate.update(
+                "INSERT INTO url (url, last_check, last_change) VALUES (?, ?, ?)",
+                url,
+                LocalTime.now(),
+                OffsetDateTime.MIN
+            );
+        } catch (Exception e) {
+            throw new JdbcDatabaseException(ERROR_MESSAGE);
+        }
+
     }
 
     @Override
@@ -64,18 +71,21 @@ public class JdbcUrlRepositoryImpl implements UrlRepository {
     @Override
     @Transactional
     public List<Url> findByLastCheckTime(LocalTime localTimeMinusHours) {
+        log.info(String.valueOf("Сравниваем с : " + localTimeMinusHours));
+        var urls = jdbcTemplate.query("SELECT * FROM URL WHERE last_check < ?", new UrlMapper(), localTimeMinusHours);
         updateByLastCheckTime(localTimeMinusHours);
-        return jdbcTemplate.query("SELECT * FROM URL WHERE last_check < ?", new UrlMapper(), localTimeMinusHours);
+        return urls;
     }
 
     @Override
     @Transactional
     public void updateByLastCheckTime(LocalTime localTimeMinusHours) {
-        jdbcTemplate.update(
+        var res = jdbcTemplate.update(
             "UPDATE URL SET last_check = ? WHERE last_check < ?",
             LocalTime.now(),
             localTimeMinusHours
         );
+        log.info(String.valueOf("Проверенно ссылок " + res));
     }
 
     @Override

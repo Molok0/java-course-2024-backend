@@ -38,7 +38,6 @@ public class JdbcUpdateService {
     }
 
     public void handleUpdate() {
-
         List<LinkUpdate> linkUpdateList = getOldUrl();
 
         if (!Objects.isNull(linkUpdateList)) {
@@ -47,6 +46,7 @@ public class JdbcUpdateService {
             linkUpdateList.forEach(linkUpdate -> {
                 String url = linkUpdate.getUrl().toString();
                 String date = urlProcessor.handle(url);
+
                 if (updateUrl(linkUpdate.getId(), date)) {
                     // Отправить боту уведомление
                     linkUpdate.setDescription(date);
