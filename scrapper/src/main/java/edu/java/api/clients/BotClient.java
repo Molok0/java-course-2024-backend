@@ -1,9 +1,11 @@
 package edu.java.api.clients;
 
 import edu.java.api.dto.LinkUpdate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 public class BotClient {
     private final WebClient webClient;
 
@@ -12,7 +14,8 @@ public class BotClient {
     }
 
     public Mono<Void> update(LinkUpdate linkUpdate) {
-        return this.webClient.post().uri("/update").bodyValue(linkUpdate).retrieve()
+        log.info("Отправка");
+        return this.webClient.post().uri("/updates").bodyValue(linkUpdate).retrieve()
             .bodyToMono(Void.class);
     }
 }

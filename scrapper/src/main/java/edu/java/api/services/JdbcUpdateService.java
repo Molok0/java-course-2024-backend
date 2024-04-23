@@ -49,8 +49,9 @@ public class JdbcUpdateService {
 
                 if (updateUrl(linkUpdate.getId(), date)) {
                     // Отправить боту уведомление
+                    log.info("Отправить боту уведомление");
                     linkUpdate.setDescription(date);
-                    botClient.update(linkUpdate);
+                    botClient.update(linkUpdate).block();
                 }
             });
         }
