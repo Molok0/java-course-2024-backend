@@ -18,7 +18,7 @@ public class BotService {
     public HttpStatusCode sendUpdate(LinkUpdate linkUpdate) {
         var tgChatsId = linkUpdate.getTgChatIds();
         for (var id : tgChatsId) {
-            String message = "Ссылка: " + linkUpdate.getUrl() + "\n" + "Сообщение: " + linkUpdate.getDescription();
+            String message = "Появились обновления: " + linkUpdate.getUrl();
             telegramBot.execute(new SendMessage(id, message));
         }
         return HttpStatus.OK;
