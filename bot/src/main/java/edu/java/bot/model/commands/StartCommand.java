@@ -2,9 +2,9 @@ package edu.java.bot.model.commands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.model.User;
+import edu.java.bot.api.client.ScrapperClient;
 import edu.java.bot.repositories.UserRepository;
-import java.util.Objects;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +14,10 @@ public class StartCommand implements Command {
     private static final String DESCRIPTION = "Запускает бот";
     private static final String MISUSE = "Неправильное использование команды /start";
     private static final String USER_REGISTRATION = "Пользователь зарегестрирован";
-    private static final String USER_HAS_BEEN_REGISTERED = "Пользователь уже был зарегестрирован";
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    ScrapperClient scrapperClient;
 
     @Override
     public String command() {
@@ -29,24 +30,22 @@ public class StartCommand implements Command {
     }
 
     @Override
-    public SendMessage handle(Update update) {
+    public SendMessage handle(@NotNull Update update) {
         Long id = update.message().chat().id();
         if (!check(update.message().text())) {
             return new SendMessage(id, MISUSE);
         }
-        var user = userRepository.findById(id);
+
         String text;
-        if (Objects.isNull(user)) {
-            text = USER_REGISTRATION;
-            userRepository.addUser(id, new User(id));
-        } else {
-            text = USER_HAS_BEEN_REGISTERED;
-        }
+
+        text = USER_REGISTRATION;
+        scrapperClient.regChat(id).block();
+
         return new SendMessage(id, text);
     }
 
     @Override
-    public boolean check(String request) {
+    public boolean check(@NotNull String request) {
         return (request.split(" ").length == 1);
     }
 }

@@ -1,6 +1,6 @@
-package edu.java.bot.processors.url;
+package edu.java.processors;
 
-import edu.java.bot.processors.url.parser.UrlParser;
+import edu.java.processors.parser.UrlParser;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -18,24 +18,17 @@ public abstract class UrlProcessor {
     public final String handle(String url) {
         String text;
         if (UrlParser.getWebSiteName(url).equals(this.getNameSite())) {
-            /*
-             * Какая то логика
-             * Добовляем ссылку в отслеживаемые
-             * */
-
-            text = url;
-            log.debug(this.getNameSite());
+            text = getLastChanges(url);
         } else if (next != null) {
-            /*
-             * Какая то логика
-             * Передаём следующему обработчику
-             * */
             text = next.handle(url);
         } else {
-            text = "Такой сайт не может отслеживаться";
+            return null;
         }
+        log.debug(url + "\t" + text);
         return text;
     }
+
+    public abstract String getLastChanges(String urlString);
 
     public abstract String getNameSite();
 }

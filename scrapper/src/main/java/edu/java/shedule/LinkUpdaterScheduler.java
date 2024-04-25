@@ -1,15 +1,25 @@
 package edu.java.shedule;
 
-import java.util.logging.Logger;
+import edu.java.api.clients.BotClient;
+import edu.java.api.services.JdbcUpdateService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class LinkUpdaterScheduler {
-    private static final Logger LOGGER = Logger.getLogger(LinkUpdaterScheduler.class.getName());
+    private final JdbcUpdateService jdbcUpdateService;
+
+    @Autowired
+    public LinkUpdaterScheduler(JdbcUpdateService jdbcUpdateService, BotClient botClient) {
+        this.jdbcUpdateService = jdbcUpdateService;
+    }
 
     @Scheduled(fixedDelayString = "#{@scheduler.interval().toMillis()}")
     public void update() {
-        LOGGER.info("calling update from LinkUpdaterScheduler");
+        log.debug("calling update from LinkUpdaterScheduler");
+        jdbcUpdateService.handleUpdate();
     }
 }

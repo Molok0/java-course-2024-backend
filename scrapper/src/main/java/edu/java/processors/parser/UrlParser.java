@@ -1,4 +1,4 @@
-package edu.java.bot.processors.url.parser;
+package edu.java.processors.parser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,7 +20,7 @@ public class UrlParser {
         String domain = "";
         if (matcher.find()) {
             domain = matcher.group(GROUP_THREE) + "." + matcher.group(GROUP_FOUR);
-            log.debug(domain);
+            log.debug(domain + " ok");
         }
         return domain;
     }
