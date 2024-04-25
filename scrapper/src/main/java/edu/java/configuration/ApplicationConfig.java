@@ -17,6 +17,7 @@ public record ApplicationConfig(
 
     public record UrlClient(String githubDefaultUrl, String stackoverflowDefaultUrl, String botDefaultUrl) {
     }
+
     public enum AccessType {
         JDBC, JPA,
         JOOQ
