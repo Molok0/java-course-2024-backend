@@ -3,8 +3,8 @@ package edu.java.api.services;
 import edu.java.api.clients.BotClient;
 import edu.java.api.dto.LinkUpdate;
 import edu.java.api.model.Url;
-import edu.java.api.model.repository.jdbc.JdbcTgChatUrlRepositoryImpl;
-import edu.java.api.model.repository.jdbc.JdbcUrlRepositoryImpl;
+import edu.java.api.model.repository.interfaces.TgChatUrlRepository;
+import edu.java.api.model.repository.interfaces.UrlRepository;
 import edu.java.processors.UrlProcessor;
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -12,24 +12,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
 public class JdbcLinkService implements LinkService {
     public final BotClient botClient;
-    private final JdbcTgChatUrlRepositoryImpl jdbcTgChatUrlRepository;
-    private final JdbcUrlRepositoryImpl jdbcUrlRepository;
+    private final TgChatUrlRepository jdbcTgChatUrlRepository;
+    private final UrlRepository jdbcUrlRepository;
     private final UrlProcessor urlProcessor;
     public final static int MINUS_HOURS = 1;
 
-
-    @Autowired
     public JdbcLinkService(
-        JdbcTgChatUrlRepositoryImpl jdbcTgChatUrlRepository,
-        JdbcUrlRepositoryImpl jdbcUrlRepository,
-        UrlProcessor urlProcessor, BotClient botClient) {
+        TgChatUrlRepository jdbcTgChatUrlRepository,
+        UrlRepository jdbcUrlRepository,
+        UrlProcessor urlProcessor, BotClient botClient
+    ) {
         this.jdbcTgChatUrlRepository = jdbcTgChatUrlRepository;
         this.jdbcUrlRepository = jdbcUrlRepository;
         this.urlProcessor = urlProcessor;

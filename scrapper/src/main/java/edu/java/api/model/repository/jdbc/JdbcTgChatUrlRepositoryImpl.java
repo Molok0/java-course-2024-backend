@@ -5,17 +5,14 @@ import edu.java.api.model.mapper.TgChatUrlMapper;
 import edu.java.api.model.repository.interfaces.TgChatUrlRepository;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+
 @Slf4j
 public class JdbcTgChatUrlRepositoryImpl implements TgChatUrlRepository {
     private JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public JdbcTgChatUrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

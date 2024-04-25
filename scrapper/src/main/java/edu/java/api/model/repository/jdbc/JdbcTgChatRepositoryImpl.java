@@ -6,19 +6,15 @@ import edu.java.api.model.repository.interfaces.TgChatRepository;
 import edu.java.exception.JdbcDatabaseException;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
 @Slf4j
 public class JdbcTgChatRepositoryImpl implements TgChatRepository {
     private final JdbcTemplate jdbcTemplate;
     private static final String ERROR_ADD_MESSAGE = "Ошибка добавления!";
     private static final String ERROR_REMOVE_MESSAGE = "Нет объекта на удаление";
 
-    @Autowired
     public JdbcTgChatRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

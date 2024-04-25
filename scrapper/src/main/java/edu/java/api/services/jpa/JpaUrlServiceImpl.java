@@ -8,17 +8,13 @@ import edu.java.generation.LinkResponse;
 import edu.java.generation.ListLinksResponse;
 import edu.java.generation.RemoveLinkRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
 @Slf4j
 public class JpaUrlServiceImpl implements UrlService {
 
     private final JpaUrlRepository jpaUrlRepository;
     private final JpaTgChatRepository jpaTgChatRepository;
 
-    @Autowired
     public JpaUrlServiceImpl(JpaUrlRepository jpaUrlRepository, JpaTgChatRepository jpaTgChatRepository) {
         this.jpaUrlRepository = jpaUrlRepository;
         this.jpaTgChatRepository = jpaTgChatRepository;

@@ -7,19 +7,15 @@ import edu.java.exception.JdbcDatabaseException;
 import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@Repository
 public class JdbcUrlRepositoryImpl implements UrlRepository {
     private final JdbcTemplate jdbcTemplate;
     private static final String ERROR_MESSAGE = "Ошибка добавления!";
 
-    @Autowired
     public JdbcUrlRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
