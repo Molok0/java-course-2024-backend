@@ -7,7 +7,6 @@ import edu.java.api.model.repository.jdbc.JdbcTgChatUrlRepositoryImpl;
 import edu.java.api.model.repository.jdbc.JdbcUrlRepositoryImpl;
 import edu.java.processors.UrlProcessor;
 import java.net.URI;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -59,8 +58,8 @@ public class JdbcUpdateService {
     }
 
     protected List<LinkUpdate> getOldUrl() {
-        OffsetDateTime OffsetDateTimeMinusHours = OffsetDateTime.now().minusHours(MINUS_HOURS);
-        List<Url> urls = jdbcUrlRepository.findByLastCheckTime(OffsetDateTimeMinusHours);
+        OffsetDateTime offsetDateTimeMinusHours = OffsetDateTime.now().minusHours(MINUS_HOURS);
+        List<Url> urls = jdbcUrlRepository.findByLastCheckTime(offsetDateTimeMinusHours);
         if (Objects.isNull(urls)) {
             return null;
         }

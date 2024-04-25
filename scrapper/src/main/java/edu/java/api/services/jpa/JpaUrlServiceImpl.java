@@ -1,6 +1,5 @@
 package edu.java.api.services.jpa;
 
-import edu.java.api.model.TgChatUrl;
 import edu.java.api.model.repository.jpa.JpaTgChatRepository;
 import edu.java.api.model.repository.jpa.JpaUrlRepository;
 import edu.java.api.services.interfaces.UrlService;
@@ -11,8 +10,6 @@ import edu.java.generation.RemoveLinkRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalTime;
-import java.util.Objects;
 
 @Service
 @Slf4j
@@ -20,6 +17,7 @@ public class JpaUrlServiceImpl implements UrlService {
 
     private final JpaUrlRepository jpaUrlRepository;
     private final JpaTgChatRepository jpaTgChatRepository;
+
     @Autowired
     public JpaUrlServiceImpl(JpaUrlRepository jpaUrlRepository, JpaTgChatRepository jpaTgChatRepository) {
         this.jpaUrlRepository = jpaUrlRepository;

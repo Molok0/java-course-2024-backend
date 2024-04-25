@@ -2,7 +2,6 @@ package edu.java.api.model.repository.interfaces;
 
 import edu.java.api.model.Url;
 import edu.java.exception.JdbcDatabaseException;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 
@@ -17,9 +16,9 @@ public interface UrlRepository {
 
     String findById(Long id);
 
-    List<Url> findByLastCheckTime(OffsetDateTime OffsetDateTimeMinusHours);
+    List<Url> findByLastCheckTime(OffsetDateTime offsetDateTimeMinusHours);
 
-    void updateByLastCheckTime(OffsetDateTime localTimeMinusHours);
+    void updateByLastCheckTime(OffsetDateTime offsetDateTimeMinusHours);
 
     int updateByTimeUrl(Long id, String time);
 }

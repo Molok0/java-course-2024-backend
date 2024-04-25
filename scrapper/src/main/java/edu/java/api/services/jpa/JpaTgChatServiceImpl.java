@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class JpaTgChatServiceImpl implements TgChatService {
 
     private final JpaTgChatRepository jpaTgChatRepository;
+
     @Autowired
     public JpaTgChatServiceImpl(JpaTgChatRepository jpaTgChatRepository) {
         this.jpaTgChatRepository = jpaTgChatRepository;

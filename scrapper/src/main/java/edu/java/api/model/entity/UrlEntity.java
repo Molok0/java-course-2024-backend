@@ -7,7 +7,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,5 +29,5 @@ public class UrlEntity {
     private OffsetDateTime lastCheck;
 
     @Column(name = "last_change", nullable = false)
-    private OffsetDateTime last_change;
+    private OffsetDateTime lastChange;
 }

@@ -4,7 +4,6 @@ import edu.java.api.model.Url;
 import edu.java.api.model.mapper.UrlMapper;
 import edu.java.api.model.repository.interfaces.UrlRepository;
 import edu.java.exception.JdbcDatabaseException;
-import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -70,20 +69,21 @@ public class JdbcUrlRepositoryImpl implements UrlRepository {
 
     @Override
     @Transactional
-    public List<Url> findByLastCheckTime(OffsetDateTime OffsetDateTimeMinusHours) {
-        log.info(String.valueOf("Сравниваем с : " + OffsetDateTimeMinusHours));
-        var urls = jdbcTemplate.query("SELECT * FROM URL WHERE last_check < ?", new UrlMapper(), OffsetDateTimeMinusHours);
-        updateByLastCheckTime(OffsetDateTimeMinusHours);
+    public List<Url> findByLastCheckTime(OffsetDateTime offsetDateTimeMinusHours) {
+        log.info(String.valueOf("Сравниваем с : " + offsetDateTimeMinusHours));
+        var urls =
+            jdbcTemplate.query("SELECT * FROM URL WHERE last_check < ?", new UrlMapper(), offsetDateTimeMinusHours);
+        updateByLastCheckTime(offsetDateTimeMinusHours);
         return urls;
     }
 
     @Override
     @Transactional
-    public void updateByLastCheckTime(OffsetDateTime OffsetDateTimeMinusHoursTimeMinusHours) {
+    public void updateByLastCheckTime(OffsetDateTime offsetDateTimeMinusHours) {
         var res = jdbcTemplate.update(
             "UPDATE URL SET last_check = ? WHERE last_check < ?",
             OffsetDateTime.now(),
-            OffsetDateTimeMinusHoursTimeMinusHours
+            offsetDateTimeMinusHours
         );
         log.info(String.valueOf("Проверенно ссылок " + res));
     }
