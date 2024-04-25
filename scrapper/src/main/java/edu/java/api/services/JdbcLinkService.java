@@ -17,24 +17,38 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class JdbcUpdateService {
-
+public class JdbcLinkService implements LinkService {
+    public final BotClient botClient;
     private final JdbcTgChatUrlRepositoryImpl jdbcTgChatUrlRepository;
     private final JdbcUrlRepositoryImpl jdbcUrlRepository;
     private final UrlProcessor urlProcessor;
-    private final BotClient botClient;
-    private static final int MINUS_HOURS = 1;
+    public final static int MINUS_HOURS = 1;
+
 
     @Autowired
-    public JdbcUpdateService(
+    public JdbcLinkService(
         JdbcTgChatUrlRepositoryImpl jdbcTgChatUrlRepository,
         JdbcUrlRepositoryImpl jdbcUrlRepository,
-        UrlProcessor urlProcessor, BotClient botClient
-    ) {
+        UrlProcessor urlProcessor, BotClient botClient) {
         this.jdbcTgChatUrlRepository = jdbcTgChatUrlRepository;
         this.jdbcUrlRepository = jdbcUrlRepository;
         this.urlProcessor = urlProcessor;
         this.botClient = botClient;
+    }
+
+    public List<LinkUpdate> getOldUrl() {
+        OffsetDateTime offsetDateTimeMinusHours = OffsetDateTime.now().minusHours(MINUS_HOURS);
+        List<Url> urls = jdbcUrlRepository.findByLastCheckTime(offsetDateTimeMinusHours);
+        if (Objects.isNull(urls)) {
+            return null;
+        }
+        return urls.stream().map(url -> {
+            LinkUpdate linkUpdate = new LinkUpdate();
+            linkUpdate.setUrl(URI.create(url.getUrl()));
+            linkUpdate.setId(url.getId());
+            linkUpdate.setTgChatIds(jdbcTgChatUrlRepository.findByUrlId(url.getId()));
+            return linkUpdate;
+        }).collect(Collectors.toList());
     }
 
     public void handleUpdate() {
@@ -57,22 +71,7 @@ public class JdbcUpdateService {
         }
     }
 
-    protected List<LinkUpdate> getOldUrl() {
-        OffsetDateTime offsetDateTimeMinusHours = OffsetDateTime.now().minusHours(MINUS_HOURS);
-        List<Url> urls = jdbcUrlRepository.findByLastCheckTime(offsetDateTimeMinusHours);
-        if (Objects.isNull(urls)) {
-            return null;
-        }
-        return urls.stream().map(url -> {
-            LinkUpdate linkUpdate = new LinkUpdate();
-            linkUpdate.setUrl(URI.create(url.getUrl()));
-            linkUpdate.setId(url.getId());
-            linkUpdate.setTgChatIds(jdbcTgChatUrlRepository.findByUrlId(url.getId()));
-            return linkUpdate;
-        }).collect(Collectors.toList());
-    }
-
-    protected boolean updateUrl(Long id, String time) {
+    public boolean updateUrl(Long id, String time) {
         // Проверяем есть ли изменения и заодно обновляем
         int countRow = jdbcUrlRepository.updateByTimeUrl(id, time);
         return countRow != 0;

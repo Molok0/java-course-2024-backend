@@ -4,9 +4,9 @@ app:
     interval: 30s
     force-check-delay: 10s
   url_client:
-      stackoverflow_default_url: https://api.stackexchange.com/2.3/
-      github_default_url: https://api.github.com/
-      bot_default_url: http://localhost:8090
+    stackoverflow_default_url: https://api.stackexchange.com/2.3/
+    github_default_url: https://api.github.com/
+    bot_default_url: http://localhost:8090
   database-access-type: jdbc
 
 spring:
@@ -17,9 +17,9 @@ spring:
       ddl-auto: validate
     show-sql: true
   datasource:
-      url: jdbc:postgresql://localhost:5437/scrapper
-      username: postgres
-      password: postgres
+    url: jdbc:postgresql://localhost:5437/scrapper
+    username: postgres
+    password: postgres
 
 springdoc:
   swagger-ui:
