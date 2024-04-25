@@ -11,10 +11,15 @@ import org.springframework.validation.annotation.Validated;
 public record ApplicationConfig(
     @NotNull
     @Bean
-    Scheduler scheduler, UrlClient urlClient) {
+    Scheduler scheduler, AccessType databaseAccessType, UrlClient urlClient) {
     public record Scheduler(boolean enable, @NotNull Duration interval, @NotNull Duration forceCheckDelay) {
     }
 
     public record UrlClient(String githubDefaultUrl, String stackoverflowDefaultUrl, String botDefaultUrl) {
     }
+    public enum AccessType {
+        JDBC, JPA,
+        JOOQ
+    }
+
 }
