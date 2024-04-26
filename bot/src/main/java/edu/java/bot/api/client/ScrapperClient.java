@@ -6,8 +6,12 @@ import edu.java.bot.api.dto.ListLinksResponse;
 import edu.java.bot.api.dto.RemoveLinkRequest;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
+import java.time.Duration;
 
 public class ScrapperClient {
     private static final String LINKS = "/links";
@@ -20,12 +24,30 @@ public class ScrapperClient {
     }
 
     public Mono<Void> regChat(Long id) {
-        return this.webClient.post().uri(LINK_TG_CHAT, id).retrieve()
-            .bodyToMono(Void.class);
+        return this.webClient
+            .post()
+            .uri(LINK_TG_CHAT, id)
+            .retrieve()
+            .bodyToMono(Void.class)
+            .retryWhen(
+                Retry.backoff(3, Duration.ofSeconds(1))
+                    .maxBackoff(Duration.ofSeconds(10))
+                    .filter(this::isRetriable)
+            ).then();
+    }
+
+    private boolean isRetriable(Throwable e) {
+        if (e instanceof WebClientResponseException ex) {
+            return ex.getStatusCode().is5xxServerError();
+        }
+        return false;
     }
 
     public Mono<Void> deleteChat(Long id) {
-        return this.webClient.post().uri(LINK_TG_CHAT, id).retrieve()
+        return this.webClient
+            .post()
+            .uri(LINK_TG_CHAT, id)
+            .retrieve()
             .bodyToMono(Void.class);
     }
 
