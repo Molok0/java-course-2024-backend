@@ -20,5 +20,5 @@ public interface UrlRepository {
 
     void updateByLastCheckTime(OffsetDateTime offsetDateTimeMinusHours);
 
-    int updateByTimeUrl(Long id, String time);
+    int updateByTimeUrl(Long id, OffsetDateTime time);
 }

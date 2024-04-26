@@ -86,10 +86,10 @@ public class JdbcUrlRepositoryImpl implements UrlRepository {
 
     @Override
     @Transactional
-    public int updateByTimeUrl(Long id, String time) {
+    public int updateByTimeUrl(Long id, OffsetDateTime time) {
         return jdbcTemplate.update(
             "UPDATE URL SET last_change=? WHERE id=?",
-            OffsetDateTime.parse(time),
+            time,
             id
         );
     }

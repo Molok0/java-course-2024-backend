@@ -1,40 +1,28 @@
 package edu.java.api.services;
 
-import edu.java.api.clients.BotClient;
 import edu.java.api.dto.LinkUpdate;
 import edu.java.api.model.entity.UrlEntity;
 import edu.java.api.model.repository.jpa.JpaTgChatUrlRepository;
 import edu.java.api.model.repository.jpa.JpaUrlRepository;
-import edu.java.processors.UrlProcessor;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class JpaLinkService implements LinkService {
-    public final BotClient botClient;
     private final JpaTgChatUrlRepository jpaTgChatUrlRepository;
     private final JpaUrlRepository jpaUrlRepository;
-    private final UrlProcessor urlProcessor;
     public final static int MINUS_HOURS = 1;
 
     public JpaLinkService(
-        BotClient botClient,
         JpaTgChatUrlRepository jdbcTgChatUrlRepository,
-        JpaUrlRepository jdbcUrlRepository,
-        UrlProcessor urlProcessor
+        JpaUrlRepository jdbcUrlRepository
     ) {
-        this.botClient = botClient;
         this.jpaTgChatUrlRepository = jdbcTgChatUrlRepository;
         this.jpaUrlRepository = jdbcUrlRepository;
-
-        this.urlProcessor = urlProcessor;
-    }
-
-    @Override
-    public void handleUpdate() {
-
     }
 
     @Override
@@ -62,10 +50,23 @@ public class JpaLinkService implements LinkService {
     }
 
     @Override
-    public boolean updateUrl(Long id, String time) {
+    public boolean updateUrl(Long id, OffsetDateTime time) {
+
         // Проверяем есть ли изменения и заодно обновляем
-//        int countRow = jpaUrlRepository.updateByTimeUrl(id, time);
-//        return countRow != 0;
-        return false;
+        List<UrlEntity> urlEntities = jpaUrlRepository.findByLastCheckBefore(time);
+
+        long countRow = 0L;
+
+        for (UrlEntity entity : urlEntities) {
+            entity.setLastCheck(OffsetDateTime.now());
+            entity.setLastChange(time);
+            countRow += 1;
+        }
+
+        jpaUrlRepository.saveAll(urlEntities);
+
+        log.info("Проверено ссылок " + urlEntities.size());
+        return countRow != 0;
+
     }
 }

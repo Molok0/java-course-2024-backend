@@ -1,6 +1,5 @@
 package edu.java.configuration;
 
-import edu.java.api.clients.BotClient;
 import edu.java.api.model.repository.interfaces.TgChatRepository;
 import edu.java.api.model.repository.interfaces.TgChatUrlRepository;
 import edu.java.api.model.repository.interfaces.UrlRepository;
@@ -13,7 +12,6 @@ import edu.java.api.services.interfaces.TgChatService;
 import edu.java.api.services.interfaces.UrlService;
 import edu.java.api.services.jdbc.JdbcTgChatServiceImpl;
 import edu.java.api.services.jdbc.JdbcUrlServiceImpl;
-import edu.java.processors.UrlProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,11 +48,9 @@ public class JdbcAccessConfiguration {
     @Bean
     public LinkService linkService(
         TgChatUrlRepository tgChatUrlRepository,
-        UrlRepository urlRepository,
-        UrlProcessor urlProcessor,
-        BotClient botClient
+        UrlRepository urlRepository
     ) {
 
-        return new JdbcLinkService(tgChatUrlRepository, urlRepository, urlProcessor, botClient);
+        return new JdbcLinkService(tgChatUrlRepository, urlRepository);
     }
 }

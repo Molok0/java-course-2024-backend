@@ -1,13 +1,12 @@
 package edu.java.api.services;
 
 import edu.java.api.dto.LinkUpdate;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 public interface LinkService {
 
-    void handleUpdate();
-
     List<LinkUpdate> getOldUrl();
 
-    boolean updateUrl(Long id, String time);
+    boolean updateUrl(Long id, OffsetDateTime time);
 }
