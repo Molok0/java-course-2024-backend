@@ -53,8 +53,7 @@ public class JpaLinkService implements LinkService {
             linkUpdate.setUrl(URI.create(url.getUrl()));
             linkUpdate.setId(url.getId());
 
-            linkUpdate.setTgChatIds(jpaTgChatUrlRepository.findAllByUrl(urlEntity).stream().map(tgChatUrlEntity ->
-            {
+            linkUpdate.setTgChatIds(jpaTgChatUrlRepository.findAllByUrl(urlEntity).stream().map(tgChatUrlEntity -> {
                 return tgChatUrlEntity.getTgChat().getId();
             }).collect(Collectors.toList()));
 
