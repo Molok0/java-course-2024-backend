@@ -50,7 +50,6 @@ public class JdbcAccessConfiguration {
         TgChatUrlRepository tgChatUrlRepository,
         UrlRepository urlRepository
     ) {
-
         return new JdbcLinkService(tgChatUrlRepository, urlRepository);
     }
 }
