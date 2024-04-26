@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BotService {
-    private TelegramBot telegramBot;
+    private final TelegramBot telegramBot;
 
     public BotService(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
@@ -18,7 +18,7 @@ public class BotService {
     public HttpStatusCode sendUpdate(LinkUpdate linkUpdate) {
         var tgChatsId = linkUpdate.getTgChatIds();
         for (var id : tgChatsId) {
-            String message = "Ссылка: " + linkUpdate.getUrl() + "\n" + "Сообщение: " + linkUpdate.getDescription();
+            String message = "Появились обновления: " + linkUpdate.getUrl();
             telegramBot.execute(new SendMessage(id, message));
         }
         return HttpStatus.OK;

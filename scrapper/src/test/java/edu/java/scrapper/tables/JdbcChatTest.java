@@ -1,61 +1,40 @@
 //package edu.java.scrapper.tables;
 //
-//import edu.java.api.model.TgChat;
-//import edu.java.api.model.repository.jdbc.TgChatRepositoryImpl;
+//import edu.java.api.model.repository.jdbc.JdbcTgChatRepositoryImpl;
+//import edu.java.exception.JdbcDatabaseException;
 //import edu.java.scrapper.IntegrationTest;
 //import org.junit.jupiter.api.Test;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.jdbc.core.JdbcTemplate;
 //import org.springframework.test.annotation.Rollback;
 //import org.springframework.transaction.annotation.Transactional;
-//import java.sql.PreparedStatement;
-//import java.sql.SQLException;
-//import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+//import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 //
 //@SpringBootTest
 //public class JdbcChatTest extends IntegrationTest {
 //
 //    @Autowired
-//    private TgChatRepositoryImpl chatRepository;
-//    @Autowired
-//    private JdbcTemplate jdbcTemplate;
+//    private JdbcTgChatRepositoryImpl jdbcTgChatRepository;
 //
 //    @Test
 //    @Transactional
 //    @Rollback
-//    void addTest() {
-//        try(var conn = POSTGRES.createConnection("")) {
+//    void doubleAddTest() {
+//        Long one = 1L;
+//        jdbcTgChatRepository.add(one);
 //
-//            TgChat tgChat = new TgChat();
-//            tgChat.setId(21l);
-//            chatRepository.add(tgChat);
-//
-//            PreparedStatement select = conn.prepareStatement("SELECT * FROM CHAT");
-//            var resultSet = select.executeQuery();
-//
-//            assertThat(!resultSet.next()).isTrue();
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+//        assertThatThrownBy(() -> {
+//            jdbcTgChatRepository.add(one);
+//        }).isInstanceOf(JdbcDatabaseException.class);
 //    }
 //
 //    @Test
 //    @Transactional
 //    @Rollback
 //    void removeTest() {
+//        assertThatThrownBy(() -> {
+//            jdbcTgChatRepository.remove(45L);
+//        }).isInstanceOf(JdbcDatabaseException.class);
+//    }
 //
-//    }
-//    @Test
-//    void findAllTest(){
-//        TgChat tgChat = new TgChat();
-//        TgChat tgChat2 = new TgChat();
-//        tgChat.setId(1l);
-//        tgChat2.setId(3l);
-//        chatRepository.add(tgChat);
-//        chatRepository.add(tgChat2);
-//        var chats = chatRepository.findAll();
-//        assertThat(1l).isEqualTo(chats.get(0).getId());
-//        assertThat(3l).isEqualTo(chats.get(1).getId());
-//    }
 //}

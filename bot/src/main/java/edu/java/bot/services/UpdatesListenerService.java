@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UpdatesListenerService implements UpdatesListener {
-    private TelegramBot telegramBot;
-    private CommandsProcessor commandsProcessor;
+    private final TelegramBot telegramBot;
+    private final CommandsProcessor commandsProcessor;
 
     public UpdatesListenerService(TelegramBot telegramBot, CommandsProcessor commandsProcessor) {
         this.commandsProcessor = commandsProcessor;

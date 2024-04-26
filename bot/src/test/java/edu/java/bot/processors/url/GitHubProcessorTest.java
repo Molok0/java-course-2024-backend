@@ -14,12 +14,12 @@ public class GitHubProcessorTest {
     @Test
     void handleTrue() {
         String url = "https://github.com/sanyarnd/tinkoff-java-course-2023/";
-        Assertions.assertEquals(gitHubProcessor.handle(url), "GitHubProcessor\t" + url);
+        Assertions.assertEquals(gitHubProcessor.handle(url), url);
     }
 
     @Test
     void handleFalse() {
         String url = "https://stackoverflow.com/search?q=unsupported%20link";
-        Assertions.assertNotEquals(gitHubProcessor.handle(url), "GitHubProcessor\t" + url);
+        Assertions.assertNotEquals(gitHubProcessor.handle(url), url);
     }
 }

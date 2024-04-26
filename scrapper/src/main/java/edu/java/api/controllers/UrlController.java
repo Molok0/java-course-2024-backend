@@ -1,6 +1,6 @@
 package edu.java.api.controllers;
 
-import edu.java.api.services.jdbc.JdbcUrlServiceImpl;
+import edu.java.api.services.interfaces.UrlService;
 import edu.java.generation.AddLinkRequest;
 import edu.java.generation.LinkResponse;
 import edu.java.generation.LinksApi;
@@ -15,31 +15,31 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequiredArgsConstructor
 public class UrlController implements LinksApi {
-    private JdbcUrlServiceImpl urlService;
+    private UrlService urlService;
 
     @Autowired
-    public UrlController(JdbcUrlServiceImpl urlService) {
+    public UrlController(UrlService urlService) {
         this.urlService = urlService;
     }
 
     @Override
     public Mono<ResponseEntity<LinkResponse>> linksDelete(
         Long tgChatId,
-        Mono<RemoveLinkRequest> removeLinkRequest
+        RemoveLinkRequest removeLinkRequest
     ) {
-        return urlService.deleteLink(tgChatId, removeLinkRequest);
+        return Mono.just(ResponseEntity.ok(urlService.deleteLink(tgChatId, removeLinkRequest)));
     }
 
     @Override
     public Mono<ResponseEntity<ListLinksResponse>> linksGet(Long tgChatId) {
-        return urlService.getAllLinks(tgChatId);
+        return Mono.just(ResponseEntity.ok(urlService.getAllLinks(tgChatId)));
     }
 
     @Override
     public Mono<ResponseEntity<LinkResponse>> linksPost(
         Long tgChatId,
-        Mono<AddLinkRequest> addLinkRequest
+        AddLinkRequest addLinkRequest
     ) {
-        return urlService.addLinks(tgChatId, addLinkRequest);
+        return Mono.just(ResponseEntity.ok(urlService.addLinks(tgChatId, addLinkRequest)));
     }
 }

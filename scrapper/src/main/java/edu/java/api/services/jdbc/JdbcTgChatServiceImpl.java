@@ -1,37 +1,22 @@
 package edu.java.api.services.jdbc;
 
-import edu.java.api.model.repository.jdbc.TgChatRepositoryImpl;
-import edu.java.api.model.repository.jdbc.TgChatUrlRepositoryImpl;
+import edu.java.api.model.repository.interfaces.TgChatRepository;
 import edu.java.api.services.interfaces.TgChatService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
-@Service
 public class JdbcTgChatServiceImpl implements TgChatService {
-    private final TgChatRepositoryImpl tgChatRepository;
-    private final TgChatUrlRepositoryImpl tgChatUrlRepository;
+    private final TgChatRepository tgChatRepository;
 
-    @Autowired
     public JdbcTgChatServiceImpl(
-        TgChatRepositoryImpl tgChatRepository,
-        TgChatUrlRepositoryImpl tgChatUrlRepository
+        TgChatRepository tgChatRepository
     ) {
         this.tgChatRepository = tgChatRepository;
-        this.tgChatUrlRepository = tgChatUrlRepository;
     }
 
-    public Mono<ResponseEntity<Void>> regNewTgChat(Long id) {
-        return Mono.fromRunnable(() -> tgChatRepository.add(id))
-            .then(Mono.just(ResponseEntity.ok().<Void>build()))
-            .onErrorResume(error -> Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()));
+    public void regNewTgChat(Long id) {
+        tgChatRepository.add(id);
     }
 
-    public Mono<ResponseEntity<Void>> deleteTgChat(Long id) {
-        return Mono.fromRunnable(() -> tgChatRepository.remove(id))
-            .then(Mono.just(ResponseEntity.ok().<Void>build()))
-            .onErrorResume(error -> Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).build()));
+    public void deleteTgChat(Long id) {
+        tgChatRepository.remove(id);
     }
 }
