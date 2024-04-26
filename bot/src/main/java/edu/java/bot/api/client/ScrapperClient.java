@@ -4,19 +4,20 @@ import edu.java.bot.api.dto.AddLinkRequest;
 import edu.java.bot.api.dto.LinkResponse;
 import edu.java.bot.api.dto.ListLinksResponse;
 import edu.java.bot.api.dto.RemoveLinkRequest;
+import java.time.Duration;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 import reactor.util.retry.Retry;
-import java.time.Duration;
 
 public class ScrapperClient {
     private static final String LINKS = "/links";
     private static final String LINK_TG_CHAT = "/tg-chat/{id}";
     private static final String HEADER_NAME = "Tg-Chat-Id";
+    private static final int MAX_RETRY_COUNT = 4;
+    private static final int MAX_BACKOFF = 10;
     private final WebClient webClient;
 
     public ScrapperClient(WebClient.Builder webClientBuilder, String defaultUrl) {
@@ -30,8 +31,8 @@ public class ScrapperClient {
             .retrieve()
             .bodyToMono(Void.class)
             .retryWhen(
-                Retry.backoff(3, Duration.ofSeconds(1))
-                    .maxBackoff(Duration.ofSeconds(10))
+                Retry.backoff(MAX_RETRY_COUNT, Duration.ofSeconds(1))
+                    .maxBackoff(Duration.ofSeconds(MAX_BACKOFF))
                     .filter(this::isRetriable)
             ).then();
     }
