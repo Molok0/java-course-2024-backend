@@ -20,6 +20,7 @@ public class ScrapperClient {
     private static final int MAX_BACKOFF = 10;
     private final WebClient webClient;
 
+
     public ScrapperClient(WebClient.Builder webClientBuilder, String defaultUrl) {
         this.webClient = webClientBuilder.baseUrl(defaultUrl).build();
     }
@@ -33,11 +34,11 @@ public class ScrapperClient {
             .retryWhen(
                 Retry.backoff(MAX_RETRY_COUNT, Duration.ofSeconds(1))
                     .maxBackoff(Duration.ofSeconds(MAX_BACKOFF))
-                    .filter(this::isRetriable)
+                    .filter(this::isRetrievable)
             ).then();
     }
 
-    private boolean isRetriable(Throwable e) {
+    private boolean isRetrievable(Throwable e) {
         if (e instanceof WebClientResponseException ex) {
             return ex.getStatusCode().is5xxServerError();
         }

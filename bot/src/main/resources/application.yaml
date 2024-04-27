@@ -2,6 +2,10 @@ app:
   telegram-token: ${APP_TELEGRAM_TOKEN}
   url_client:
     scrapper_default_url: http://localhost:8080
+  retry:
+    max-attempts: 3
+    retry-delay: 5
+
 
 spring:
   application:

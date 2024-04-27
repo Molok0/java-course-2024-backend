@@ -18,6 +18,7 @@ public class TrackCommand implements Command {
     private static final String MISUSE = "После команды /track должна быть ссылка на сайт";
     private static final String NOT_COMMAND = "Такой сайт не может отслеживаться";
     private static final String ACCEPTED = "Сслыка добавлена в отслеживаемые";
+    private static final String ERROR = "Ошибка добавления";
     public UrlProcessor urlProcessor;
 
     @Autowired
@@ -56,8 +57,13 @@ public class TrackCommand implements Command {
                 AddLinkRequest addLinkRequest = new AddLinkRequest();
                 addLinkRequest.setLink(URI.create(url));
                 log.info(url);
-                scrapperClient.postLinks(addLinkRequest, id).block();
-                text = ACCEPTED;
+                try {
+                    scrapperClient.postLinks(addLinkRequest, id).block();
+                    text = ACCEPTED;
+                } catch (Exception e) {
+                    text = ERROR;
+                }
+
             }
 
             return new SendMessage(id, text);
