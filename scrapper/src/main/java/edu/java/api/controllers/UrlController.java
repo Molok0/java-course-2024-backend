@@ -1,11 +1,11 @@
 package edu.java.api.controllers;
 
-import edu.java.api.services.interfaces.UrlService;
-import edu.java.generation.AddLinkRequest;
-import edu.java.generation.LinkResponse;
-import edu.java.generation.LinksApi;
-import edu.java.generation.ListLinksResponse;
-import edu.java.generation.RemoveLinkRequest;
+import edu.java.domain.generation.AddLinkRequest;
+import edu.java.domain.generation.LinkResponse;
+import edu.java.domain.generation.LinksApi;
+import edu.java.domain.generation.ListLinksResponse;
+import edu.java.domain.generation.RemoveLinkRequest;
+import edu.java.service.services.interfaces.UrlService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package edu.java.api.controllers;
 
-import edu.java.api.services.interfaces.TgChatService;
-import edu.java.generation.TgChatApi;
+import edu.java.domain.generation.TgChatApi;
+import edu.java.service.services.interfaces.TgChatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

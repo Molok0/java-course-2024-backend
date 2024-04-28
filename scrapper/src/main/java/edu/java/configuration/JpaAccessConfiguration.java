@@ -1,14 +1,14 @@
 package edu.java.configuration;
 
-import edu.java.api.model.repository.jpa.JpaTgChatRepository;
-import edu.java.api.model.repository.jpa.JpaTgChatUrlRepository;
-import edu.java.api.model.repository.jpa.JpaUrlRepository;
-import edu.java.api.services.JpaLinkService;
-import edu.java.api.services.LinkService;
-import edu.java.api.services.interfaces.TgChatService;
-import edu.java.api.services.interfaces.UrlService;
-import edu.java.api.services.jpa.JpaTgChatServiceImpl;
-import edu.java.api.services.jpa.JpaUrlServiceImpl;
+import edu.java.domain.repository.jpa.JpaTgChatRepository;
+import edu.java.domain.repository.jpa.JpaTgChatUrlRepository;
+import edu.java.domain.repository.jpa.JpaUrlRepository;
+import edu.java.service.services.JpaLinkService;
+import edu.java.service.services.LinkService;
+import edu.java.service.services.interfaces.TgChatService;
+import edu.java.service.services.interfaces.UrlService;
+import edu.java.service.services.jpa.JpaTgChatServiceImpl;
+import edu.java.service.services.jpa.JpaUrlServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

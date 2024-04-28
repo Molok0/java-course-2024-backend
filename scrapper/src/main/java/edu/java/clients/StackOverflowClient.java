@@ -1,6 +1,6 @@
 package edu.java.clients;
 
-import edu.java.dto.StackOverflowDto.ItemsDto;
+import edu.java.domain.dto.StackOverflowDto.ItemsDto;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 

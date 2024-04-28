@@ -2,7 +2,7 @@ package edu.java.api.handlers;
 
 import edu.java.api.controllers.TgChatController;
 import edu.java.api.controllers.UrlController;
-import edu.java.generation.ApiErrorResponse;
+import edu.java.domain.generation.ApiErrorResponse;
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
