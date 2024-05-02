@@ -15,9 +15,11 @@ springdoc:
 
 management:
   endpoints:
-    jmx:
+    web:
       exposure:
         include: health,info
+  server:
+    port: 8091
 
 server:
   port: 8090
