@@ -18,10 +18,14 @@ management:
     web:
       exposure:
         include: health,info, prometheus
-      base-path: /
 
+      base-path: /
+      path-mapping:
+        prometheus: /metrics
   server:
     port: 8091
+
+
 
 server:
   port: 8090
