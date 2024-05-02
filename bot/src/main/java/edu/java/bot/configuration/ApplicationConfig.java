@@ -7,10 +7,12 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @ConfigurationProperties(prefix = "app", ignoreUnknownFields = false)
-public record ApplicationConfig(@NotEmpty String telegramToken, UrlClient urlClient, Retry retry) {
+public record ApplicationConfig(@NotEmpty String telegramToken, UrlClient urlClient, Retry retry,
+                                @NotNull RetryType retryType) {
     public record UrlClient(String scrapperDefaultUrl) {
     }
 
     public record Retry(@NotNull int retryDelay, @NotNull int maxAttempts) {
     }
+
 }

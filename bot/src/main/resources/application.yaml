@@ -5,6 +5,7 @@ app:
   retry:
     max-attempts: 3
     retry-delay: 5
+  retry-type: linear
 
 
 spring:
