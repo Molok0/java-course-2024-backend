@@ -18,6 +18,7 @@ management:
     web:
       exposure:
         include: health,info
+      base-path: /
   server:
     port: 8091
 
