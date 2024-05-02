@@ -13,6 +13,12 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: health,info
+
 server:
   port: 8090
 
