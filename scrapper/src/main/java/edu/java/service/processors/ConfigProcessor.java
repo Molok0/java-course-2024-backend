@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ConfigProcessor {
+
     @Bean
     public UrlProcessor urlProcessor(StackOverflowClient stackOverflowClient, GitHubClient gitHubClient) {
         return new GitHubProcessor(new StackOverflowProcessor(null, stackOverflowClient), gitHubClient);
